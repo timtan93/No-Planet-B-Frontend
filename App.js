@@ -1,14 +1,34 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
-import { Constants, Permissions, ImagePicker } from 'expo';
+import { View, StyleSheet, Button, Text, TouchableOpacity } from 'react-native';
+import { Constants, Permissions, ImagePicker, Location } from 'expo';
 import { RNS3 } from 'react-native-aws3'
+import { AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
 
 export default class App extends Component {
   
   state = {
-    
+    user_id: 3,
     uri: null,
+    latitude: null,
+    longitude: null,
   }
+
+  componentWillMount() {
+      this.getLocation();
+  }
+
+  getLocation = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({ latitude: location.coords.latitude ,
+    longitude: location.coords.longitude});
+  };
   galleryHandler = async () => {
     const permissions = Permissions.CAMERA_ROLL;
     const { status } = await Permissions.askAsync(permissions);
@@ -59,23 +79,22 @@ export default class App extends Component {
       if (response.status !== 201)
       throw new Error("Failed to upload image to S3");
       console.log(response.body);
-    });
+    })
   }
 
 
   render() {
     return (
       <View style={styles.container}>
-
-        <Button
-          title="Pick from Camera"
-          onPress={this.cameraHandler}
-        />
-        <Button
-          title="Pick from Gallery"
-          onPress={this.galleryHandler}
-        />
-
+      <TouchableOpacity style={styles.button}
+          onPress={this.galleryHandler}>
+      <MaterialCommunityIcons name="image-album" size={50} color="cyan" />
+      </TouchableOpacity>
+        <TouchableOpacity style={styles.button}
+          onPress={this.cameraHandler}>
+        <AntDesign name="camera" size={50} color="cyan"/>
+        </TouchableOpacity>
+       
       </View>
     );
   }
@@ -85,8 +104,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#383838',
   },
+
 });
