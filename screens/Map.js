@@ -3,7 +3,7 @@ import { MapView, Constants, View} from 'expo';
 import { Alert } from 'react-native'
 
 
-export default class App extends React.Component {
+export default class Map extends React.Component {
     
     componentWillMount(){
         Alert.alert(

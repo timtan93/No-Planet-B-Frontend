@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Homepage from './screens/Homepage'
 import Map from './screens/Map'
+import History from './screens/History'
 import { MapView } from 'expo';
 import { RNS3 } from 'react-native-aws3'
 import {Permissions, ImagePicker, Location } from 'expo';
@@ -105,8 +106,11 @@ getLocation = async () => {
   render() {
     return (
       <View style={{ flex: 1 }}>
-      {!this.state.uploadedpic? <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} />:
-      <Map logMoreLitter={this.logMoreLitter} latitude={this.state.latitude} longitude={this.state.longitude}/>}
+      {/* {!this.state.uploadedpic? <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} />:
+      <Map logMoreLitter={this.logMoreLitter} latitude={this.state.latitude} longitude={this.state.longitude}/>} */}
+      
+      <History/>
+      <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} />
       </View>
     );
   }
