@@ -1,14 +1,71 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
-import { Constants, Permissions, ImagePicker } from 'expo';
+import Homepage from './screens/Homepage'
+import Map from './screens/Map'
+import History from './screens/History'
+import { MapView } from 'expo';
 import { RNS3 } from 'react-native-aws3'
+import {Permissions, ImagePicker, Location } from 'expo';
 
+import { View, TouchableOpacity, Text} from 'react-native';
 export default class App extends Component {
   
   state = {
-    
+    uploadedpic: false,
     uri: null,
+    latitude: null,
+    longitude: null,
+    userItems: [],
+    itemName: null,
+    errorMessage: null,
+    coords: null,
+    user_id: 6,
   }
+
+  getItems = () => {
+    fetch(`http://192.168.1.68.:3000/users/${this.state.user_id}`)
+    .then(resp => resp.json())
+    .then(data => {
+      this.setState({
+        userItems: data.items
+      })
+    }) 
+
+  }
+
+  componentDidMount() {
+    
+  }
+  componentWillMount() {
+    this.getLocation().then(this.getItems())
+    
+}
+
+// sendLocation = () => {
+//   fetch(`http://192.168.1.68.:3000/items`, {
+//     method: 'POST',
+//     headers: {'Content-Type': 'application/json'},
+//     body: JSON.stringify({name: 'bottle', user_id:6, latitude:this.state.coords})
+//   })
+// }
+
+getLocation = async () => {
+  let { status } = await Permissions.askAsync(Permissions.LOCATION);
+  if (status !== 'granted') {
+    this.setState({
+      errorMessage: 'Permission to access location was denied',
+    });
+  }
+  let location = await Location.getCurrentPositionAsync({});
+    this.setState({ latitude: location.coords.latitude ,
+    longitude: location.coords.longitude, coords: location.coords});
+  };
+
+  logMoreLitter = () => {
+    this.setState({
+      uploadedpic: false
+    })
+  }
+
   galleryHandler = async () => {
     const permissions = Permissions.CAMERA_ROLL;
     const { status } = await Permissions.askAsync(permissions);
@@ -24,6 +81,8 @@ export default class App extends Component {
       })
       console.log(permissions, 'SUCCESS', image);
     }
+    
+    this.handleSelectedImage()
   }
 
   cameraHandler = async () => {
@@ -41,6 +100,10 @@ export default class App extends Component {
       })
       console.log(permissions, 'SUCCESS', image);
     }
+    this.handleSelectedImage()
+  }
+
+  handleSelectedImage = () => {
     const file = {
       uri: this.state.uri,
       name: 'test',
@@ -59,34 +122,23 @@ export default class App extends Component {
       if (response.status !== 201)
       throw new Error("Failed to upload image to S3");
       console.log(response.body);
-    });
+      this.setState({
+        uploadedpic: true
+      })
+    })
   }
-
 
   render() {
     return (
-      <View style={styles.container}>
-
-        <Button
-          title="Pick from Camera"
-          onPress={this.cameraHandler}
-        />
-        <Button
-          title="Pick from Gallery"
-          onPress={this.galleryHandler}
-        />
+      <View style={{ flex: 1 }}>
+      {/* {!this.state.uploadedpic? <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} />:
+      <Map logMoreLitter={this.logMoreLitter} latitude={this.state.latitude} longitude={this.state.longitude}/>} */}
+      
+      <History items={this.state.userItems}/>
+      <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} />
 
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
-  },
-});
