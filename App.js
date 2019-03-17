@@ -6,7 +6,7 @@ import { MapView } from 'expo';
 import { RNS3 } from 'react-native-aws3'
 import {Permissions, ImagePicker, Location } from 'expo';
 
-import { View} from 'react-native';
+import { View, TouchableOpacity, Text} from 'react-native';
 export default class App extends Component {
   
   state = {
@@ -14,15 +14,39 @@ export default class App extends Component {
     uri: null,
     latitude: null,
     longitude: null,
-    useritems: [],
-    itemname: null,
+    userItems: [],
+    itemName: null,
     errorMessage: null,
     coords: null,
+    user_id: 6,
   }
 
+  getItems = () => {
+    fetch(`http://192.168.1.68.:3000/users/${this.state.user_id}`)
+    .then(resp => resp.json())
+    .then(data => {
+      this.setState({
+        userItems: data.items
+      })
+    }) 
+
+  }
+
+  componentDidMount() {
+    
+  }
   componentWillMount() {
-    this.getLocation();
+    this.getLocation().then(this.getItems())
+    
 }
+
+// sendLocation = () => {
+//   fetch(`http://192.168.1.68.:3000/items`, {
+//     method: 'POST',
+//     headers: {'Content-Type': 'application/json'},
+//     body: JSON.stringify({name: 'bottle', user_id:6, latitude:this.state.coords})
+//   })
+// }
 
 getLocation = async () => {
   let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -35,11 +59,13 @@ getLocation = async () => {
     this.setState({ latitude: location.coords.latitude ,
     longitude: location.coords.longitude, coords: location.coords});
   };
+
   logMoreLitter = () => {
     this.setState({
       uploadedpic: false
     })
   }
+
   galleryHandler = async () => {
     const permissions = Permissions.CAMERA_ROLL;
     const { status } = await Permissions.askAsync(permissions);
@@ -78,7 +104,6 @@ getLocation = async () => {
   }
 
   handleSelectedImage = () => {
-    console.log('hi')
     const file = {
       uri: this.state.uri,
       name: 'test',
@@ -109,8 +134,9 @@ getLocation = async () => {
       {/* {!this.state.uploadedpic? <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} />:
       <Map logMoreLitter={this.logMoreLitter} latitude={this.state.latitude} longitude={this.state.longitude}/>} */}
       
-      <History/>
+      <History items={this.state.userItems}/>
       <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} />
+
       </View>
     );
   }

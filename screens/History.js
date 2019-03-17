@@ -2,15 +2,23 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Constants, MapView, Location, Permissions } from 'expo';
 
+
+
+
 export default class History extends Component {
   state = {
     locationResult: 'Loading Location.....',
     location: {coords: { latitude: -8.639880, longitude: 115.140167}},
     location2: {coords: { latitude: 51.566022 , longitude: -0.060651}} ,
+    items: this.props.userItems,
+    markers: []
+    
   };
 
+  
+  
   componentDidMount() {
-    this.getLocation();
+    this.getLocation()
   }
 
 
