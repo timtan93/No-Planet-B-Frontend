@@ -4,18 +4,9 @@ import { View, StyleSheet } from 'react-native';
 
 
 export default class Map extends React.Component {
-    
-    // componentWillMount(){
-    //     Alert.alert(
-    //         'Thanks for helping create a litter free future',
-    //         '',
-    //         [
-    //           {text: 'Log more', onPress: () => {this.props.logMoreLitter()}},
-    //           {text: 'View Map', onPress: () => console.log('View Map')},
-    //         ],
-    //         { cancelable: false }
-    //       )
-    // }
+  static navigationOptions = {
+    title: `Map`
+  };
 
   render() {
     return (

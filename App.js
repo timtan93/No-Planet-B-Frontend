@@ -7,7 +7,7 @@ import { RNS3 } from 'react-native-aws3'
 import {Permissions, ImagePicker, Location } from 'expo';
 import AppNavigator from './navigation/AppNavigator.js'
 
-import { View, TouchableOpacity, Text} from 'react-native';
+import { Alert, View, TouchableOpacity, Text} from 'react-native';
 export default class App extends Component {
   
   state = {
@@ -23,6 +23,7 @@ export default class App extends Component {
     imageURL: null,
     email: 'timtan93@gmail.com',
     uploadedImageName: null,
+    usersName: null,
   }
 
   getUserData = () => {
@@ -31,7 +32,8 @@ export default class App extends Component {
     .then(data => {
       this.setState({
         userItems: data.items,
-        user_id: data.id
+        user_id: data.id,
+        usersName: data.first_name
       })
     })
  
@@ -124,8 +126,8 @@ getLocation = async () => {
     const options = {
       bucket: 'mod5-recycle',
           region: 'eu-west-2',
-          accessKey: 'AKIAJAVHTTOI67GNT2XA',
-          secretKey: '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',
+          accessKey: 'AKIAJ2DDE7SSXSHEEPUA',
+          secretKey: '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',
           successActionStatus: 201
       }
       RNS3.put(file, options).then(response => {
@@ -142,8 +144,25 @@ getLocation = async () => {
         uploadedImageName: response.body.postResponse.etag
       })
       this.logNewItem()
+      this.popUp()
     })
   } 
+ popUp = () => {
+  Alert.alert(
+    'Alert Title',
+    'My Alert Msg',
+    [
+      {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ],
+    {cancelable: false},
+  );
+ }
 
   render() {
     return (
@@ -159,7 +178,8 @@ getLocation = async () => {
             currentLongitude: this.state.longitude,
             cameraHandler: this.cameraHandler,
             galleryHandler: this.galleryHandler,
-            userItems: this.state.userItems
+            userItems: this.state.userItems,
+            usersName: this.state.usersName
           } }
         />
       </View>

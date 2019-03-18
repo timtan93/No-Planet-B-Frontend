@@ -5,7 +5,6 @@ import History from '../screens/History';
 
 const AppNavigator = createStackNavigator({
   Homepage: { screen: Homepage },
-  Map: { screen: Map},
   History: { screen: History},
 });
 const App = createAppContainer(AppNavigator)
