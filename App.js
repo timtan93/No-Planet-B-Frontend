@@ -5,6 +5,7 @@ import History from './screens/History'
 import { MapView } from 'expo';
 import { RNS3 } from 'react-native-aws3'
 import {Permissions, ImagePicker, Location } from 'expo';
+import AppNavigator from './navigation/AppNavigator.js'
 
 import { View, TouchableOpacity, Text} from 'react-native';
 export default class App extends Component {
@@ -14,11 +15,16 @@ export default class App extends Component {
     uri: null,
     latitude: null,
     longitude: null,
-    userItems: [],
+    userItems: [{name: 'bottle', 
+    latitude: 51.566022 , 
+    longitude: -0.060651},
+  {name: 'cigarette', 
+  latitude: 51.562340, 
+  longitude: -0.074790}],
     itemName: null,
     errorMessage: null,
     coords: null,
-    user_id: 6,
+    user_id: 7,
   }
 
   getItems = () => {
@@ -36,7 +42,8 @@ export default class App extends Component {
     
   }
   componentWillMount() {
-    this.getLocation().then(this.getItems())
+    this.getLocation()
+    // .then(this.getItems())
     
 }
 
@@ -112,15 +119,17 @@ getLocation = async () => {
     console.log(file)
     
     const options = {
-      bucket: 'goodvet',
-          region: 'ap-northeast-2',
-          accessKey: 'AKIAIJ4ZNXCKL6CIYIXQ',
-          secretKey: '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',
+      bucket: 'mod5-recycle',
+          region: 'eu-west-2',
+          accessKey: 'AKIAJAVHTTOI67GNT2XA',
+          secretKey: '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',
           successActionStatus: 201
       }
       RNS3.put(file, options).then(response => {
-      if (response.status !== 201)
-      throw new Error("Failed to upload image to S3");
+      if (response.status !== 201) {
+        console.error(response)
+        throw new Error("Failed to upload image to S3");
+      }
       console.log(response.body);
       this.setState({
         uploadedpic: true
@@ -133,10 +142,18 @@ getLocation = async () => {
       <View style={{ flex: 1 }}>
       {/* {!this.state.uploadedpic? <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} />:
       <Map logMoreLitter={this.logMoreLitter} latitude={this.state.latitude} longitude={this.state.longitude}/>} */}
-      
+{/*       
       <History items={this.state.userItems}/>
-      <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} />
-
+      <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} /> */}
+<AppNavigator
+          screenProps={ {
+            currentLatitude: this.state.latitude,
+            currentLongitude: this.state.longitude,
+            cameraHandler: this.cameraHandler,
+            galleryHandler: this.galleryHandler,
+            userItems: this.state.userItems
+          } }
+        />
       </View>
     );
   }

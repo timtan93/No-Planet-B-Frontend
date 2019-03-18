@@ -6,17 +6,11 @@ import { Constants, MapView, Location, Permissions } from 'expo';
 
 
 export default class History extends Component {
-  state = {
-    locationResult: 'Loading Location.....',
-    location: {coords: { latitude: -8.639880, longitude: 115.140167}},
-    location2: {coords: { latitude: 51.566022 , longitude: -0.060651}} ,
-    items: this.props.userItems,
-    markers: []
-    
-  };
+  
+  userItems = this.props.screenProps.userItems.map(itemPlace => 
+    <MapView.Marker  coordinate={itemPlace} key={itemPlace.name}/>)
+  
 
-  
-  
   componentDidMount() {
     this.getLocation()
   }
@@ -35,25 +29,18 @@ export default class History extends Component {
  };
 
   render() {
+    userItems = this.props.screenProps.userItems.map(itemPlace => 
+      <MapView.Marker  coordinate={itemPlace} key={itemPlace.name}/>)
     return (
       <View style={styles.container}>
         <MapView
           style={{ alignSelf: 'stretch', height: 400 }}
-          region={{ latitude: this.state.location.coords.latitude, 
-            longitude: this.state.location.coords.longitude, 
+          region={{ latitude: this.props.screenProps.currentLatitude, 
+            longitude: this.props.screenProps.currentLongitude,
             latitudeDelta: 0.0922, 
             longitudeDelta: 0.0421 }}
         >
-    <MapView.Marker
-      coordinate={this.state.location.coords}
-      title= "item?"
-      description=" User?"
-    />
-     <MapView.Marker
-      coordinate={this.state.location2.coords}
-      title="Item name?"
-      description=" User?"
-    />
+    {userItems}
         
         </MapView>
       </View>
