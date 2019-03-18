@@ -3,8 +3,8 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://va-jxp.anonymous.mod5-frontend.exp.direct",
+  "packagerNgrokUrl": "https://packager.va-jxp.anonymous.mod5-frontend.exp.direct",
+  "ngrokPid": 15598,
   "webpackServerPort": null
 }

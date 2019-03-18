@@ -15,45 +15,41 @@ export default class App extends Component {
     uri: null,
     latitude: null,
     longitude: null,
-    userItems: [{name: 'bottle', 
-    latitude: 51.566022 , 
-    longitude: -0.060651},
-  {name: 'cigarette', 
-  latitude: 51.562340, 
-  longitude: -0.074790}],
+    userItems: [],
     itemName: null,
     errorMessage: null,
     coords: null,
-    user_id: 7,
+    user_id: null,
+    imageURL: null,
+    email: 'timtan93@gmail.com',
+    uploadedImageName: null,
   }
 
-  getItems = () => {
-    fetch(`http://192.168.1.68.:3000/users/${this.state.user_id}`)
+  getUserData = () => {
+    fetch(`http://10.218.7.113:3000/users/${this.state.email}`)
     .then(resp => resp.json())
     .then(data => {
       this.setState({
-        userItems: data.items
+        userItems: data.items,
+        user_id: data.id
       })
-    }) 
-
-  }
+    })
+ 
+    }
 
   componentDidMount() {
-    
+      this.getLocation()
+      this.getUserData()
   }
-  componentWillMount() {
-    this.getLocation()
-    // .then(this.getItems())
-    
-}
+ 
 
-// sendLocation = () => {
-//   fetch(`http://192.168.1.68.:3000/items`, {
-//     method: 'POST',
-//     headers: {'Content-Type': 'application/json'},
-//     body: JSON.stringify({name: 'bottle', user_id:6, latitude:this.state.coords})
-//   })
-// }
+logNewItem = () => {
+  fetch(`http://10.218.7.113:3000/items`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({image: this.state.imageURL, name: this.state.uploadedImageName ,user_id:this.state.user_id, latitude:this.state.latitude, longitude: this.state.longitude})
+  }).then(resp=> console.log(resp))
+}
 
 getLocation = async () => {
   let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -110,10 +106,17 @@ getLocation = async () => {
     this.handleSelectedImage()
   }
 
+  getCurrentTime = () => {
+    var today = new Date();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    return time;
+    
+}
+
   handleSelectedImage = () => {
     const file = {
       uri: this.state.uri,
-      name: 'test',
+      name: `${this.state.user_id}`+`${this.getCurrentTime()}`,
       type: 'image/png'
     }
     console.log(file)
@@ -129,13 +132,18 @@ getLocation = async () => {
       if (response.status !== 201) {
         console.error(response)
         throw new Error("Failed to upload image to S3");
+      }else{
+
       }
-      console.log(response.body);
+      console.log(response.body.postResponse);
       this.setState({
-        uploadedpic: true
+        uploadedpic: true,
+        imageURL: response.body.postResponse.location,
+        uploadedImageName: response.body.postResponse.etag
       })
+      this.logNewItem()
     })
-  }
+  } 
 
   render() {
     return (
