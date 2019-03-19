@@ -5,8 +5,9 @@ import History from './screens/History'
 import { MapView } from 'expo';
 import { RNS3 } from 'react-native-aws3'
 import {Permissions, ImagePicker, Location } from 'expo';
+import AppNavigator from './navigation/AppNavigator.js'
 
-import { View, TouchableOpacity, Text} from 'react-native';
+import { Alert, View, TouchableOpacity, Text} from 'react-native';
 export default class App extends Component {
   
   state = {
@@ -18,35 +19,39 @@ export default class App extends Component {
     itemName: null,
     errorMessage: null,
     coords: null,
-    user_id: 6,
+    user_id: null,
+    imageURL: null,
+    email: 'timtan93@gmail.com',
+    uploadedImageName: null,
+    usersName: null,
   }
 
-  getItems = () => {
-    fetch(`http://192.168.1.68.:3000/users/${this.state.user_id}`)
+  getUserData = () => {
+    fetch(`http://10.218.7.113:3000/users/${this.state.email}`)
     .then(resp => resp.json())
     .then(data => {
       this.setState({
-        userItems: data.items
+        userItems: data.items,
+        user_id: data.id,
+        usersName: data.first_name
       })
-    }) 
-
-  }
+    })
+ 
+    }
 
   componentDidMount() {
-    
+      this.getLocation()
+      this.getUserData()
   }
-  componentWillMount() {
-    this.getLocation().then(this.getItems())
-    
-}
+ 
 
-// sendLocation = () => {
-//   fetch(`http://192.168.1.68.:3000/items`, {
-//     method: 'POST',
-//     headers: {'Content-Type': 'application/json'},
-//     body: JSON.stringify({name: 'bottle', user_id:6, latitude:this.state.coords})
-//   })
-// }
+logNewItem = () => {
+  fetch(`http://10.218.7.113:3000/items`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({image: this.state.imageURL, name: this.state.uploadedImageName ,user_id:this.state.user_id, latitude:this.state.latitude, longitude: this.state.longitude})
+  }).then(resp=> console.log(resp))
+}
 
 getLocation = async () => {
   let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -103,40 +108,80 @@ getLocation = async () => {
     this.handleSelectedImage()
   }
 
+  getCurrentTime = () => {
+    var today = new Date();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    return time;
+    
+}
+
   handleSelectedImage = () => {
     const file = {
       uri: this.state.uri,
-      name: 'test',
+      name: `${this.state.user_id}`+`${this.getCurrentTime()}`,
       type: 'image/png'
     }
     console.log(file)
     
     const options = {
-      bucket: 'goodvet',
-          region: 'ap-northeast-2',
-          accessKey: 'AKIAIJ4ZNXCKL6CIYIXQ',
-          secretKey: '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',
+      bucket: 'mod5-recycle',
+          region: 'eu-west-2',
+          accessKey: 'AKIAJ2DDE7SSXSHEEPUA',
+          secretKey: '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',
           successActionStatus: 201
       }
       RNS3.put(file, options).then(response => {
-      if (response.status !== 201)
-      throw new Error("Failed to upload image to S3");
-      console.log(response.body);
+      if (response.status !== 201) {
+        console.error(response)
+        throw new Error("Failed to upload image to S3");
+      }else{
+
+      }
+      console.log(response.body.postResponse);
       this.setState({
-        uploadedpic: true
+        uploadedpic: true,
+        imageURL: response.body.postResponse.location,
+        uploadedImageName: response.body.postResponse.etag
       })
+      this.logNewItem()
+      this.popUp()
     })
-  }
+  } 
+ popUp = () => {
+  Alert.alert(
+    'Alert Title',
+    'My Alert Msg',
+    [
+      {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ],
+    {cancelable: false},
+  );
+ }
 
   render() {
     return (
       <View style={{ flex: 1 }}>
       {/* {!this.state.uploadedpic? <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} />:
       <Map logMoreLitter={this.logMoreLitter} latitude={this.state.latitude} longitude={this.state.longitude}/>} */}
-      
+{/*       
       <History items={this.state.userItems}/>
-      <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} />
-
+      <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} /> */}
+<AppNavigator
+          screenProps={ {
+            currentLatitude: this.state.latitude,
+            currentLongitude: this.state.longitude,
+            cameraHandler: this.cameraHandler,
+            galleryHandler: this.galleryHandler,
+            userItems: this.state.userItems,
+            usersName: this.state.usersName
+          } }
+        />
       </View>
     );
   }

@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 7005,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
   "expoServerNgrokUrl": "https://va-jxp.anonymous.mod5-frontend.exp.direct",
   "packagerNgrokUrl": "https://packager.va-jxp.anonymous.mod5-frontend.exp.direct",
-  "ngrokPid": 7016,
+  "ngrokPid": 7233,
   "webpackServerPort": null
 }
