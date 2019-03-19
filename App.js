@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Homepage from './screens/Homepage'
 import Map from './screens/Map'
 import History from './screens/History'
+import Login from './screens/Login'
+import API from './API.js'
 import { MapView } from 'expo';
 import { RNS3 } from 'react-native-aws3'
 import {Permissions, ImagePicker, Location } from 'expo';
@@ -21,13 +23,13 @@ export default class App extends Component {
     coords: null,
     user_id: null,
     imageURL: null,
-    email: 'timtan93@gmail.com',
+    email: '',
     uploadedImageName: null,
     usersName: null,
   }
 
   getUserData = () => {
-    fetch(`http://10.218.7.113:3000/users/${this.state.email}`)
+    fetch(`http://10.218.3.84:3000/users/${this.state.user_id}`)
     .then(resp => resp.json())
     .then(data => {
       this.setState({
@@ -42,11 +44,12 @@ export default class App extends Component {
   componentDidMount() {
       this.getLocation()
       this.getUserData()
+      console.log(API.validate)
   }
  
 
 logNewItem = () => {
-  fetch(`http://10.218.7.113:3000/items`, {
+  fetch(`http://10.218.3.84:3000/items`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({image: this.state.imageURL, name: this.state.uploadedImageName ,user_id:this.state.user_id, latitude:this.state.latitude, longitude: this.state.longitude})
@@ -164,15 +167,20 @@ getLocation = async () => {
   );
  }
 
+  setUser = (data )=> {
+    this.setState({
+      email: data.email
+    })
+  }
+
   render() {
     return (
+      
       <View style={{ flex: 1 }}>
-      {/* {!this.state.uploadedpic? <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} />:
-      <Map logMoreLitter={this.logMoreLitter} latitude={this.state.latitude} longitude={this.state.longitude}/>} */}
-{/*       
-      <History items={this.state.userItems}/>
-      <Homepage cameraHandler={this.cameraHandler} galleryHandler={this.galleryHandler} /> */}
-<AppNavigator
+      
+      {this.state.email === "" ? <Login setUserID={this.setUser}   /> : 
+   
+ <AppNavigator
           screenProps={ {
             currentLatitude: this.state.latitude,
             currentLongitude: this.state.longitude,
@@ -181,9 +189,38 @@ getLocation = async () => {
             userItems: this.state.userItems,
             usersName: this.state.usersName
           } }
-        />
-      </View>
+      /> 
+    }
+      </View> 
+     
     );
   }
 }
 
+
+// auth stuff 
+//SIGN IN 
+// fetch(`http://localhost:3000/signin`, {
+//     method: 'POST',
+// 	headers: {'Content-Type': "application/json"},
+// 	body: JSON.stringify({email: 'tim', password: 'tim'})
+//     }).then(data => data.json())
+// returns email add and token 
+
+// VALIDATE
+// fetch(`http://localhost:3000/validate`, {
+//     method: 'GET',
+// 	headers: {'Content-Type': "application/json",
+// 'Authorization': "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6NX0.WlbdGLMHHw4C4_A6jtXjah7_3e8bDoEgCB-YlxULGDU"}
+	
+//     }).then(data => data.json())
+//returns email and token 
+
+//GET ITEMS
+// fetch(`http://localhost:3000/items`, {
+//     method: 'GET',
+// 	headers: {'Content-Type': "application/json",
+// 'Authorization': "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6NX0.WlbdGLMHHw4C4_A6jtXjah7_3e8bDoEgCB-YlxULGDU"}
+	
+//     }).then(data => data.json())
+ //returns items 
