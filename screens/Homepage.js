@@ -4,6 +4,9 @@ import { Constants} from 'expo';
 import { AntDesign, MaterialCommunityIcons, 
   MaterialIcons} from '@expo/vector-icons';
 export default class Homepage extends Component {
+  state = {
+    user : '',
+  }
   static navigationOptions = {
     title: `Welcome`
   };

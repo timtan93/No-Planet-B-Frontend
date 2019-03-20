@@ -9,7 +9,7 @@ import { RNS3 } from 'react-native-aws3'
 import {Permissions, ImagePicker, Location } from 'expo';
 import AppNavigator from './navigation/AppNavigator.js'
 
-import { Alert, View, TouchableOpacity, Text} from 'react-native';
+import { Button, AsyncStorage, Alert, View, TouchableOpacity, Text} from 'react-native';
 export default class App extends Component {
   
   state = {
@@ -29,7 +29,7 @@ export default class App extends Component {
   }
 
   getUserData = () => {
-    fetch(`http://10.218.3.84:3000/users/${this.state.user_id}`)
+    fetch(`http://10.0.2.2:3000/users/${this.state.user_id}`)
     .then(resp => resp.json())
     .then(data => {
       this.setState({
@@ -42,14 +42,25 @@ export default class App extends Component {
     }
 
   componentDidMount() {
+    console.log('hi')
       this.getLocation()
-      this.getUserData()
-      console.log(API.validate)
+      API.validate().then(data =>{
+        if (data.error) {
+          this.signOut()
+        } else {
+        this.setUser(data)
+        }
+      })
   }
- 
+
+  signOut= async () => {
+    await AsyncStorage.clear();
+
+  };
+
 
 logNewItem = () => {
-  fetch(`http://10.218.3.84:3000/items`, {
+  fetch(`http://10.0.2.2:3000/items`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({image: this.state.imageURL, name: this.state.uploadedImageName ,user_id:this.state.user_id, latitude:this.state.latitude, longitude: this.state.longitude})
@@ -169,7 +180,7 @@ getLocation = async () => {
 
   setUser = (data )=> {
     this.setState({
-      email: data.email
+      email: "timtan93@gmail.com"
     })
   }
 
@@ -178,19 +189,11 @@ getLocation = async () => {
       
       <View style={{ flex: 1 }}>
       
-      {this.state.email === "" ? <Login setUserID={this.setUser}   /> : 
+      {this.state.email === "" ? <Login setUser={this.setUser}   /> : 
    
- <AppNavigator
-          screenProps={ {
-            currentLatitude: this.state.latitude,
-            currentLongitude: this.state.longitude,
-            cameraHandler: this.cameraHandler,
-            galleryHandler: this.galleryHandler,
-            userItems: this.state.userItems,
-            usersName: this.state.usersName
-          } }
-      /> 
+ <AppNavigator/> 
     }
+    
       </View> 
      
     );

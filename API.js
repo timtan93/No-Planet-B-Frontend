@@ -2,23 +2,19 @@ import { AsyncStorage } from 'react-native'
 
 class API {
     static signin(user) {
-        console.log('hi')
-        console.log(AsyncStorage)
-      return fetch("http://10.218.3.84:3000/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
-      }).then(response => response.json());
+      return fetch(`http://10.0.2.2:3000/signin`, {
+        method: 'POST',
+      headers: {'Content-Type': "application/json"},
+      body: JSON.stringify(user)
+        }).then(data => data.json())
     }
   
     static validate() {
-      return this.get("http://10.218.3.84:3000/validate");
+      return this.get("http://10.0.2.2:3000/validate");
     }
   
     static getItems() {
-      return this.get("http://10.218.3.84:3000/items");
+      return this.get("http://10.0.2.2.84:3000/items");
     } 
   
     static get(url) {

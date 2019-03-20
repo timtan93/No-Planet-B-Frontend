@@ -16,19 +16,18 @@ export default class Login extends Component {
     this.setState({ username: user.username });
   };
 
-  signout = () => {
-    AsyncStorage.removeItem("token");
-    this.setState({ username: "" });
-  };
+ 
 
 
   onLogin() {   
-    console.log(this.state)  
-    API.signin(this.state).then(data => {
+    API.signin(this.state)
+    .then(data => {
         if(data.error){
-           Alert.alert("something is wrong")
+           Alert.alert(data.error)
         } else {
-            this.props.setUserID(data)
+          AsyncStorage.setItem("token", data.token);
+            this.props.setUser(data.email)
+            
         }
     })
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ScrollView, Image } from 'react-native';
 import { Constants, MapView } from 'expo';
+import API from '../API'
 
 
 
@@ -8,7 +9,14 @@ import { Constants, MapView } from 'expo';
 
 
 export default class History extends Component {
-  
+  state = {
+    items: [],
+  }
+  componentDidMount() {
+    API.getItems().then(data => ({
+      setState: data
+    })
+    )}
   static navigationOptions = {
     title: `History`
   };
@@ -18,7 +26,7 @@ export default class History extends Component {
     return (
       <View style={styles.container}>
         <MapView
-          style={{ alignSelf: 'stretch', height: 400 }}
+          style={{ width:420, height:800, paddingTop: Constants.statusBarHeight}}
           region={{ latitude: this.props.screenProps.currentLatitude, 
             longitude: this.props.screenProps.currentLongitude,
             latitudeDelta: 0.0005, 
