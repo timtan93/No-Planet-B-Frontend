@@ -14,8 +14,9 @@ import AuthLoadingScreen from './screens/Auth'
 import SignInScreen from './screens/SignIn'
 import HomeScreen from './screens/Home'
 import OtherScreen from './screens/OtherScreen'
-import MapScreen from './screens/Map'
+import MapScreen from './screens/MapScreen'
 
+import Entry from './screens/Entry'
 const AppStack = createStackNavigator({ Home: HomeScreen, Other: OtherScreen, Map: MapScreen });
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 
@@ -23,7 +24,7 @@ export default createAppContainer(createSwitchNavigator(
 
   {
     AuthLoading: AuthLoadingScreen,
-    App: AppStack,
+    App: Entry,
     Auth: AuthStack,
   },
   {
