@@ -1,36 +1,48 @@
 import React from 'react';
 import { View, Dimensions, ScrollButton, StyleSheet,Text, Button } from 'react-native';
-
+const DeviceWidth = Dimensions.get('window').width
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Welcome to the app!',
   };
  
   render() {
-    const DeviceWidth = Dimensions.get('window').width
     return(
-      <View style={{
-        flexDirection: 'row',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+      <View style={styles.container}>
         <View>
-          <Button title='b' onPress={() => console.log('hi')} style={{width: DeviceWidth*0.3, height: DeviceWidth*0.3, marginBottom:10, marginLeft:10,   Color: 'powderblue'}} />
-          <Button title='b' onPress={() => console.log('hi')} style={{width: DeviceWidth*0.3, height: DeviceWidth*0.3, marginBottom:10, marginLeft:10,   Color: 'skyblue'}} />
-          <Button title='b' onPress={() => console.log('hi')} style={{width: DeviceWidth*0.3, height: DeviceWidth*0.3, marginBottom:10, marginLeft:10,   Color: 'steelblue'}} />
+          <View style={styles.button} />
+          <View style={styles.button} />
+          <View style={styles.button} />
         </View>
         <View>
-          <Button title='b' onPress={() => console.log('hi')} style={{width: DeviceWidth*0.3, height: DeviceWidth*0.3, marginBottom:10, marginLeft:10,   Color: 'powderblue'}} />
-          <Button title='b' onPress={() => console.log('hi')} style={{width: DeviceWidth*0.3, height: DeviceWidth*0.3, marginBottom:10, marginLeft:10,   Color: 'skyblue'}} />
-          <Button title='b' onPress={() => console.log('hi')} style={{width: DeviceWidth*0.3, height: DeviceWidth*0.3, marginBottom:10, marginLeft:10,   Color: 'steelblue'}} />
+          <View style={styles.button} />
+          <View style={styles.button} />
+          <View style={styles.button} />
         </View>
         <View>
-          <Button title='b' onPress={() => console.log('hi')} style={{width: DeviceWidth*0.3, height: DeviceWidth*0.3, marginBottom:10, marginLeft:10,   Color: 'powderblue'}} />
-          <Button title='b' onPress={() => console.log('hi')} style={{width: DeviceWidth*0.3, height: DeviceWidth*0.3, marginBottom:10, marginLeft:10,   Color: 'skyblue'}} />
-          <Button title='b' onPress={() => console.log('hi')} style={{width: DeviceWidth*0.3, height: DeviceWidth*0.3, marginBottom:10, marginLeft:10,   Color: 'steelblue'}} />
+          <View style={styles.button} />
+          <View style={styles.button} />
+          <View style={styles.button} />
         </View>
       </View>
+
       )
   }
 }
+
+const styles = StyleSheet.create({
+  container : {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button : {
+    width: DeviceWidth*0.2, 
+    height: DeviceWidth*0.2, 
+    marginBottom:10, 
+    marginLeft:10, 
+    backgroundColor: 'cyan',
+    borderRadius: 10
+  }
+})

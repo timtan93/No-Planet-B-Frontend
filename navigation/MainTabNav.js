@@ -6,6 +6,7 @@ import HomeScreen from '../screens/HomeScreen'
 import CameraScreen from '../screens/CameraScreen'
 import MapScreen from '../screens/MapScreen'
 import OptionsScreen from '../screens/OptionsScreen'
+import StyleScreen from '../screens/StylingCheatSheet'
 
 
 
@@ -53,11 +54,20 @@ OptionsStack.navigationOptions = {
   ),
 };
 
+const StyleStack = createStackNavigator({
+  Style: StyleScreen,
+});
+
+StyleStack.navigationOptions = {
+  tabBarLabel: 'Style',
+};
+
 const MainStack = createBottomTabNavigator({
   HomeStack,
   CameraStack,
   MapStack,
   OptionsStack,
+  StyleStack
 });
 
 const AppContainer = createAppContainer(MainStack)

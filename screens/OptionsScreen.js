@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet,Text, View, Button } from 'react-native';
 
 export default class OptionsScreen extends React.Component {
   static navigationOptions = {
-    title: 'Welcome to the app!',
+    title: 'Sign Out?',
   };
   render() {
     return(
