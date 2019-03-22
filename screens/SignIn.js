@@ -63,6 +63,11 @@ export default class  SignInScreen extends React.Component {
                 style={styles.input}
                 onPress={this.onLogin.bind(this)}
               />
+               <Button
+                title={'SignUp'}
+                style={styles.input}
+                onPress={() => this.props.navigation.navigate('Welcome')}
+              />
             
               </ImageBackground>
           );

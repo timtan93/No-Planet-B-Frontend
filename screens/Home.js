@@ -4,7 +4,7 @@ import {Location, Permissions} from 'expo'
 import MainTabNav from '../navigation/MainTabNav'
 
 
-export default class Entry extends React.Component {
+export default class Home extends React.Component {
   state ={
     items: [],
     latitude: null,
