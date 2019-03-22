@@ -8,20 +8,22 @@ import {
   StyleSheet,
   View,
   TextInput,
-} from 'react-native';
+ImageBackground} from 'react-native';
 import API from '../API'
 
 
 export default class  SignInScreen extends React.Component {
         
- 
+
           
           state = {
             email: '',
             password: '',
           }
         
-
+        SignUp = () => {
+          this.props.navigation.navigate('SignUp')
+        }
         _signInAsync = async (data) => {
             await AsyncStorage.setItem('token', data.token);
             this.props.navigation.navigate('App');
@@ -41,7 +43,7 @@ export default class  SignInScreen extends React.Component {
       
         render() {
           return (
-            <View style={styles.container}>
+            <ImageBackground source={require('../app/img/turtle.jpg')} style={styles.container}>
               <TextInput
                 value={this.state.email}
                 onChangeText={(email) => this.setState({ email })}
@@ -61,7 +63,8 @@ export default class  SignInScreen extends React.Component {
                 style={styles.input}
                 onPress={this.onLogin.bind(this)}
               />
-            </View>
+            
+              </ImageBackground>
           );
         }
       }

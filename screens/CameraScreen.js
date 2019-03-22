@@ -13,7 +13,7 @@ import { Constants, Permissions, ImagePicker} from 'expo';
 import { AntDesign, MaterialCommunityIcons, 
   MaterialIcons} from '@expo/vector-icons';
 import { RNS3 } from 'react-native-aws3'
-export default class OtherScreen extends React.Component {
+export default class CameraScreen extends React.Component {
 
   static navigationOptions = {
     title: `Log An Item`,
@@ -30,7 +30,7 @@ export default class OtherScreen extends React.Component {
   galleryHandler = async () => {
     const permissions = Permissions.CAMERA_ROLL;
     const { status } = await Permissions.askAsync(permissions);
-    console.log(permissions, status);
+    // console.log(permissions, status);
     if(status === 'granted') {
       let image = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
@@ -40,7 +40,7 @@ export default class OtherScreen extends React.Component {
       this.setState({
         uri: image.uri
       })
-      console.log(permissions, 'SUCCESS', image);
+      // console.log(permissions, 'SUCCESS', image);
     }
     
     this.handleSelectedImage()
@@ -49,7 +49,7 @@ export default class OtherScreen extends React.Component {
   cameraHandler = async () => {
     const permissions = Permissions.CAMERA;
     const { status } = await Permissions.askAsync(permissions);
-    console.log(permissions, status);
+    // console.log(permissions, status);
     if(status === 'granted') {
       let image = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
@@ -59,18 +59,12 @@ export default class OtherScreen extends React.Component {
       this.setState({
         uri: image.uri
       })
-      console.log(permissions, 'SUCCESS', image);
+      // console.log(permissions, 'SUCCESS', image);
     }
     this.handleSelectedImage()
   }
 
-  logNewItem = () => {
-    fetch(`http://10.0.2.2:3000/items`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({image: this.state.imageURL, name: this.state.uploadedImageName ,user_id:this.state.user_id, latitude:this.state.latitude, longitude: this.state.longitude})
-    }).then(resp=> console.log(resp))
-  }
+  
 
   handleSelectedImage = () => {
     const file = {
@@ -88,12 +82,12 @@ export default class OtherScreen extends React.Component {
       }
       RNS3.put(file, options).then(response => {
       if (response.status !== 201) {
-        console.error(response)
+        // console.error(response)
         throw new Error("Failed to upload image to S3");
       }else{
 
       }
-      console.log(response.body.postResponse);
+      // console.log(response.body.postResponse);
       this.setState({
         uploadedPic: true,
         imageURL: response.body.postResponse.location,
@@ -102,8 +96,8 @@ export default class OtherScreen extends React.Component {
       const latitude = this.props.screenProps.latitude
       const longitude = this.props.screenProps.latitude
       const item = {name: this.state.uploadedImageName, latitude: latitude , longitude: longitude , image: this.state.imageURL}
-      console.log(item)
-      API.logItem(item).then(item => console.log(item))
+      // console.log(item)
+      API.logItem(item).then(item => this.props.screenProps.addLoggedItem(item))
       // this.popUp()
     })
   } 

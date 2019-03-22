@@ -3,6 +3,7 @@ import { AsyncStorage, Platform, StatusBar, StyleSheet, View, Text } from 'react
 import {Location, Permissions} from 'expo'
 import MainTabNav from '../navigation/MainTabNav'
 
+
 export default class Entry extends React.Component {
   state ={
     items: [],
@@ -14,6 +15,13 @@ export default class Entry extends React.Component {
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };
+
+  addLoggedItem = (item) => {
+    const items = this.state.items
+    this.setState({
+      items: [...items, item]
+    })
+  }
 
   componentDidMount() {
     API.getItems()
@@ -44,7 +52,8 @@ export default class Entry extends React.Component {
               latitude: this.state.latitude,
               longitude: this.state.longitude,
               items: this.state.items,
-              signOut: this._signOutAsync
+              signOut: this._signOutAsync,
+              addLoggedItem: this.addLoggedItem
             }} />
         </View>
       );

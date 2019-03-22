@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
-import { FontAwesome, AntDesign, Entypo } from '@expo/vector-icons'
+import { SimpleLineIcons, FontAwesome, AntDesign, Entypo } from '@expo/vector-icons'
 import HomeScreen from '../screens/HomeScreen'
 import CameraScreen from '../screens/CameraScreen'
 import MapScreen from '../screens/MapScreen'
-
+import OptionsScreen from '../screens/OptionsScreen'
 
 
 
@@ -42,12 +42,22 @@ MapStack.navigationOptions = {
     <Entypo name="map" size={32}/>
   ),
 };
+const OptionsStack = createStackNavigator({
+  Options: OptionsScreen,
+});
 
+OptionsStack.navigationOptions = {
+  tabBarLabel: 'Options',
+  tabBarIcon: ({ focused }) => (
+    <SimpleLineIcons name="options" size={32}/>
+  ),
+};
 
 const MainStack = createBottomTabNavigator({
   HomeStack,
   CameraStack,
-  MapStack
+  MapStack,
+  OptionsStack,
 });
 
 const AppContainer = createAppContainer(MainStack)

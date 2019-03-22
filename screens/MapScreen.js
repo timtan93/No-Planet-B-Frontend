@@ -15,7 +15,6 @@ export default class Map extends React.Component {
     const items = this.props.screenProps.items
     const userItemsMarkers = items.map(item => <MapView.Marker  coordinate={item} key={item.name} title={item.name} pinColor={'darkblue'}/>)
     const userItemImages = items.map(item => <Image source={{uri: item.image, width: 300, height: 300}} key={item.name} />)
-    console.log(items)
     return (
       <View style={styles.container}>
         <MapView
