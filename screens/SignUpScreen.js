@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Alert,
   ActivityIndicator,
@@ -9,24 +9,20 @@ import {
   View,
   TextInput,
   Text,
-ImageBackground} from 'react-native';
-import API from '../API'
+  ImageBackground
+} from "react-native";
+import API from "../API";
 
-
-export default class  DashBoardScreen extends React.Component {
-        
-
-      
-        render() {
-          return (
-              <View>
-           <Text>Sign Up</Text>
-           <Button
-                title={'SignIn'}
-                onPress={() => this.props.navigation.navigate('SignIn')}
-              />
-           </View>
-          );
-        }
-      }
-      
+export default class DashBoardScreen extends React.Component {
+  render() {
+    return (
+      <View>
+        <Text>Sign Up</Text>
+        <Button
+          title={"SignIn"}
+          onPress={() => this.props.navigation.navigate("SignIn")}
+        />
+      </View>
+    );
+  }
+}

@@ -1,10 +1,10 @@
 //This is an example code to show image in a button//
-import React, { Component } from 'react';
+import React, { Component } from "react";
 //import react in our code.
- 
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 //import all the components we are going to use.
- 
+
 export default class App extends Component<{}> {
   render() {
     return (
@@ -16,7 +16,7 @@ export default class App extends Component<{}> {
             //We are showing the Image from online
             source={{
               uri:
-                'http://aboutreact.com/wp-content/uploads/2018/08/facebook.png.png',
+                "http://aboutreact.com/wp-content/uploads/2018/08/facebook.png.png"
             }}
             //You can also show the image from you project directory like below
             //source={require('./Images/facebook.png')}
@@ -31,7 +31,7 @@ export default class App extends Component<{}> {
             //We are showing the Image from online
             source={{
               uri:
-                'http://aboutreact.com/wp-content/uploads/2018/08/google-plus.png',
+                "http://aboutreact.com/wp-content/uploads/2018/08/google-plus.png"
             }}
             //You can also show the image from you project directory like below
             //source={require('./Images/google-plus.png')}
@@ -45,52 +45,51 @@ export default class App extends Component<{}> {
     );
   }
 }
- 
+
 const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 10
   },
   GooglePlusStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#dc4e41',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#dc4e41",
     borderWidth: 0.5,
-    borderColor: '#fff',
+    borderColor: "#fff",
     height: 40,
     width: 220,
     borderRadius: 5,
-    margin: 5,
+    margin: 5
   },
   FacebookStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#485a96',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#485a96",
     borderWidth: 0.5,
-    borderColor: '#fff',
+    borderColor: "#fff",
     height: 40,
     width: 220,
     borderRadius: 5,
-    margin: 5,
+    margin: 5
   },
   ImageIconStyle: {
     padding: 10,
     margin: 5,
     height: 25,
     width: 25,
-    resizeMode: 'stretch',
+    resizeMode: "stretch"
   },
   TextStyle: {
-    color: '#fff',
+    color: "#fff",
     marginBottom: 4,
-    marginRight: 20,
+    marginRight: 20
   },
   SeparatorLine: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     width: 1,
-    height: 40,
-  },
+    height: 40
+  }
 });
- 
