@@ -5,7 +5,10 @@ import {
   Button,
   StyleSheet,
   TextInput,
-  ImageBackground
+  ImageBackground,
+  TouchableOpacity,
+  View,
+  Text
 } from "react-native";
 import API from "../API";
 
@@ -56,7 +59,7 @@ export default class SignInScreen extends React.Component {
           style={styles.input}
         />
 
-        <Button
+        {/* <Button
           title={"Login"}
           style={styles.input}
           onPress={this.onLogin.bind(this)}
@@ -65,7 +68,12 @@ export default class SignInScreen extends React.Component {
           title={"SignUp"}
           style={styles.input}
           onPress={() => this.props.navigation.navigate("Welcome")}
-        />
+        /> */}
+                  <TouchableOpacity style={{paddingBottom: 10}} onPress={this.onLogin.bind(this)}>
+            <View style={(style = styles.button)}>
+              <Text style={styles.text}>Sign In</Text>
+            </View >
+          </TouchableOpacity>
       </ImageBackground>
     );
   }
@@ -82,8 +90,21 @@ const styles = StyleSheet.create({
     width: 200,
     height: 44,
     padding: 10,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "black",
-    marginBottom: 10
+    marginBottom: 10,
+    borderRadius: 10
+  },
+  button: {
+    width: 100,
+    height: 44,
+    backgroundColor: "#66FCF1",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "space-around",
+    alignSelf:'center',
+  },
+  text: {
+    fontWeight: "bold"
   }
 });

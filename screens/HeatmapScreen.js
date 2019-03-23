@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import API from "../API";
 
-export default class WelcomeScreen extends React.Component {
+export default class HeatMap extends React.Component {
   render() {
     return (
       <ImageBackground

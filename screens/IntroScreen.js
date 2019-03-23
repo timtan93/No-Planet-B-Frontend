@@ -5,7 +5,8 @@ import {
   Text,
   ImageBackground,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from "react-native";
 import API from "../API";
 import { AntDesign, Feather } from "@expo/vector-icons";
@@ -50,7 +51,8 @@ export default class DashBoardScreen extends React.Component {
                 fontWeight: "bold",
                 color: "black",
                 paddingTop: 20,
-                fontSize: 15
+                fontSize: 15,
+                paddingBottom: 20
               }}
             >
               Geotags provide an into problem areas, while hashtags help identify the most
@@ -58,10 +60,18 @@ export default class DashBoardScreen extends React.Component {
               work with local councils to find sustainable solutions.
             </Text>
           </View>
-          <Button
-            title={"SignIn"}
-            onPress={() => this.props.navigation.navigate("SignIn")}
-          />
+          <View>
+          <TouchableOpacity style={{paddingBottom: 10}} onPress={() => this.props.navigation.navigate("SignIn")}>
+            <View style={(style = styles.button)}>
+              <Text style={styles.text}>Sign In</Text>
+            </View >
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("Welcome")}>
+            <View style={(style = styles.button)}>
+              <Text style={styles.text}>Sign Up</Text>
+            </View>
+          </TouchableOpacity>
+          </View>
         </ScrollView>
       </ImageBackground>
     );
@@ -84,12 +94,13 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   button: {
-    width: 50,
-    height: 50,
-    marginBottom: 10,
-    marginLeft: 10,
-    backgroundColor: "cyan",
-    borderRadius: 10
+    width: 100,
+    height: 44,
+    backgroundColor: "#66FCF1",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "space-around",
+    alignSelf:'center',
   },
   paragraph: {
     width: 300,
@@ -97,5 +108,8 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     paddingTop: 50
+  },
+  text: {
+    fontWeight: "bold"
   }
 });

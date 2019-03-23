@@ -5,14 +5,15 @@ import {
   Alert,
   Text,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  TextInput
 } from "react-native";
 import { Permissions, ImagePicker } from "expo";
 import { RNS3 } from "react-native-aws3";
 const DeviceWidth = Dimensions.get("window").width;
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: "Welcome to the app!"
+    title: "Start Logging"
   };
 
   state = {
@@ -118,6 +119,13 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        {/* <TextInput
+          value={this.state.name}
+          onChangeText={name => this.setState({ name })}
+          placeholder={"Tag"}
+          placeholderTextColor={"grey"}
+          style={styles.input}
+        /> */}
         <View>
           <TouchableOpacity onPress={e => this.handleTagSelect("Plastic")}>
             <View style={(style = styles.button)}>
@@ -180,14 +188,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#383838"
+    backgroundColor: "#1F2833"
   },
   button: {
     width: DeviceWidth * 0.2,
     height: DeviceWidth * 0.2,
     marginBottom: 10,
     marginLeft: 10,
-    backgroundColor: "cyan",
+    backgroundColor: "#66FCF1",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "space-around"
