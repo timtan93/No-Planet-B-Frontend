@@ -7,81 +7,165 @@ import {
   StyleSheet,
   TouchableOpacity
 } from "react-native";
-
+import { Permissions, ImagePicker } from "expo";
+import { RNS3 } from "react-native-aws3";
 const DeviceWidth = Dimensions.get("window").width;
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "Welcome to the app!"
   };
 
-  handleTagSelect(item) {
-    console.log("this is a:", item)
+  state = {
+    imageURL: null,
+    uri: null,
+    name: null
+  };
+  getCurrentTime = () => {
+    var today = new Date();
+    var time =
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    return time;
+  };
+
+  handleNoImage = () => {
+    item = {
+      name: this.state.name,
+      latitude: this.props.screenProps.latitude,
+      longitude: this.props.screenProps.longitude,
+      image: null
+    };
+    API.logItem(item);
+  };
+
+  handleTagSelect(name) {
+    this.setState({
+      name: name
+    });
     Alert.alert(
-      'Thanks for logging litter',
-      'Would you like to include an image?',
+      "Thanks for logging litter",
+      "Would you like to include an image?",
       [
-        {text: 'Yes', onPress: () => console.log('Yes')},
+        { text: "Yes", onPress: () => this.cameraHandler() },
         {
-          text: 'No',
-          onPress: () => console.log('No'),
-          style: 'cancel',
-        },
+          text: "No",
+          onPress: () => this.handleNoImage(),
+          style: "cancel"
+        }
       ],
-      {cancelable: false},
+      { cancelable: false }
     );
   }
 
+  cameraHandler = async () => {
+    console.log("hi");
+    const permissions = Permissions.CAMERA;
+    const { status } = await Permissions.askAsync(permissions);
+    console.log(permissions, status);
+    if (status === "granted") {
+      let image = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 4],
+        quality: 0.2
+      }).catch(error => console.log(permissions, { error }));
+      this.setState({
+        uri: image.uri
+      });
+      console.log(permissions, "SUCCESS", image);
+    }
+    this.handleSelectedImage();
+  };
+
+  handleSelectedImage = () => {
+    const file = {
+      uri: this.state.uri,
+      name: `${this.getCurrentTime()}+${this.state.name}`,
+      type: "image/png"
+    };
+
+    const options = {
+      bucket: "mod5-recycle",
+      region: "eu-west-2",
+      accessKey: "AKIAJ2DDE7SSXSHEEPUA",
+      secretKey: "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",
+      successActionStatus: 201
+    };
+    RNS3.put(file, options).then(response => {
+      if (response.status !== 201) {
+        // console.error(response)
+        throw new Error("Failed to upload image to S3");
+      } else {
+      }
+      // console.log(response.body.postResponse);
+      this.setState({
+        imageURL: response.body.postResponse.location,
+        uploadedImageName: response.body.postResponse.etag
+      });
+      const latitude = this.props.screenProps.latitude;
+      const longitude = this.props.screenProps.longitude;
+      const item = {
+        name: `${this.state.name}`,
+        latitude: latitude,
+        longitude: longitude,
+        image: this.state.imageURL
+      };
+      // console.log(item)
+      API.logItem(item).then(item =>
+        this.props.screenProps.addLoggedItem(item)
+      );
+      // this.popUp()
+    });
+  };
   render() {
     return (
       <View style={styles.container}>
         <View>
           <TouchableOpacity onPress={e => this.handleTagSelect("Plastic")}>
-            <View style={style=styles.button}>
-            <Text style={styles.text}>Plastic</Text>
+            <View style={(style = styles.button)}>
+              <Text style={styles.text}>Plastic</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={e => this.handleTagSelect("Cigarette")}>
-          <View style={style=styles.button}>
-            <Text style={styles.text}>Cigarette</Text>
+            <View style={(style = styles.button)}>
+              <Text style={styles.text}>Cigarette</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={e => this.handleTagSelect("Paper")}>
-          <View style={style=styles.button}>
-            <Text style={styles.text}>Paper</Text>
+            <View style={(style = styles.button)}>
+              <Text style={styles.text}>Paper</Text>
             </View>
           </TouchableOpacity>
         </View>
         <View>
           <TouchableOpacity onPress={e => this.handleTagSelect("Can")}>
-          <View style={style=styles.button}>
-            <Text style={styles.text}>Can</Text>
+            <View style={(style = styles.button)}>
+              <Text style={styles.text}>Can</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={e => this.handleTagSelect("Bottle")}>
-          <View style={style=styles.button}>
-            <Text style={styles.text}>Bottle</Text>
+            <View style={(style = styles.button)}>
+              <Text style={styles.text}>Bottle</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={e => this.handleTagSelect("Bag")}>
-          <View style={style=styles.button}>
-            <Text style={styles.text}>Bag</Text>
+            <View style={(style = styles.button)}>
+              <Text style={styles.text}>Bag</Text>
             </View>
           </TouchableOpacity>
         </View>
         <View>
           <TouchableOpacity onPress={e => this.handleTagSelect("Bottlecap")}>
-          <View style={style=styles.button}>
-            <Text style={styles.text}>BottleCap</Text>
+            <View style={(style = styles.button)}>
+              <Text style={styles.text}>BottleCap</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={e => this.handleTagSelect("Cup")}>
-          <View style={style=styles.button}>
-            <Text style={styles.text}>Cup</Text>
+            <View style={(style = styles.button)}>
+              <Text style={styles.text}>Cup</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={e => this.handleTagSelect("Straw")}>
-          <View style={style=styles.button}>
-            <Text style={styles.text}>Straw</Text>
+            <View style={(style = styles.button)}>
+              <Text style={styles.text}>Straw</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -105,11 +189,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     backgroundColor: "cyan",
     borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'space-around'
+    alignItems: "center",
+    justifyContent: "space-around"
   },
   text: {
-    fontWeight: 'bold',
-
+    fontWeight: "bold"
   }
 });

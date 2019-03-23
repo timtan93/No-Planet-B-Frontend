@@ -19,12 +19,12 @@ export default class Map extends React.Component {
         pinColor={"darkblue"}
       />
     ));
-    const userItemImages = items.map(item => (
-      <Image
-        source={{ uri: item.image, width: 300, height: 300 }}
-        key={item.name}
-      />
-    ));
+    // const userItemImages = items.map(item => (
+    //   <Image
+    //     source={{ uri: item.image, width: 300, height: 300 }}
+    //     key={item.name}
+    //   />
+    // ));
     return (
       // <View style={styles.container}>
         <MapView

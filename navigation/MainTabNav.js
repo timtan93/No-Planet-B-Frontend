@@ -8,13 +8,15 @@ import {
 import {
   SimpleLineIcons,
   AntDesign,
-  Entypo
+  Entypo,
+  MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import HomeScreen from "../screens/HomeScreen";
 import CameraScreen from "../screens/CameraScreen";
 import MapScreen from "../screens/MapScreen";
 import OptionsScreen from "../screens/OptionsScreen";
 import StyleScreen from "../screens/StylingCheatSheet";
+import ImagesScreen from "../screens/ImagesScreen"
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen
@@ -59,12 +61,21 @@ StyleStack.navigationOptions = {
   tabBarLabel: "Style"
 };
 
+const ImagesStack = createStackNavigator({
+  Images: ImagesScreen
+});
+
+ImagesStack.navigationOptions = {
+  tabBarIcon: ({ focused }) => <MaterialCommunityIcons name="image-album" size={32} />
+}
+
 const MainStack = createBottomTabNavigator({
   HomeStack,
-  CameraStack,
+  // CameraStack,
   MapStack,
+  ImagesStack,
   OptionsStack,
-  StyleStack
+  // StyleStack
 }, {
   tabBarOptions: {
     showLabel: false,

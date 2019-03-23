@@ -1,0 +1,20 @@
+import React, { Component } from "react";
+import ImageLayout from "react-native-image-layout";
+
+
+export default class ImageScreen extends React.Component {
+  render() {
+    const items = this.props.screenProps.items;
+    const userItemImages = items.map(item => {
+      if (item.image)
+      return { uri: item.image}
+    })
+    return (
+        <ImageLayout
+            images={
+              userItemImages
+            }
+        />
+    );
+}
+}
