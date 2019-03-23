@@ -1,11 +1,8 @@
 import React from "react";
 import {
   AsyncStorage,
-  Platform,
-  StatusBar,
   StyleSheet,
   View,
-  Text
 } from "react-native";
 import { Location, Permissions } from "expo";
 import MainTabNav from "./MainTabNav";

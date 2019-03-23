@@ -134,11 +134,6 @@ export default class CameraScreen extends React.Component {
     return time;
   };
 
-  //   _signOutAsync = async () => {
-  //     await AsyncStorage.clear();
-  //     this.props.navigation.navigate('Auth');
-  //   };
-
   render() {
     return (
       <View style={styles.container}>

@@ -6,17 +6,13 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/API.js" beforeDir="false" afterPath="$PROJECT_DIR$/API.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/navigation/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/navigation/Home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/navigation/MainTabNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/navigation/MainTabNav.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/Auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/CameraScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/CameraScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/HeatmapScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/HeatmapScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/Home.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/HomeScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/MapScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/MapScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/OptionsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/OptionsScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/SignIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/SignIn.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/SignUpScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/SignUpScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/StylingCheatSheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/StylingCheatSheet.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,10 +24,10 @@
     <session id="-779066351">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
-          <entry key="project.open.time.3" value="1" />
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.3" value="2" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
     </session>

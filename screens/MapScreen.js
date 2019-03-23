@@ -26,12 +26,13 @@ export default class Map extends React.Component {
       />
     ));
     return (
-      <View style={styles.container}>
+      // <View style={styles.container}>
         <MapView
           style={{
-            width: 420,
-            height: 400,
-            paddingTop: Constants.statusBarHeight
+            // width: 420,
+            // height: 400,
+            // paddingTop: Constants.statusBarHeight
+            flex: 1
           }}
           initialRegion={{
             latitude: latitude,
@@ -42,10 +43,10 @@ export default class Map extends React.Component {
         >
           {userItemsMarkers}
         </MapView>
-        <ScrollView contentContainerStyle={styles.contentContainer}>
+        /* <ScrollView contentContainerStyle={styles.contentContainer}>
           {userItemImages}
-        </ScrollView>
-      </View>
+        </ScrollView> */
+      // </View>
     );
   }
 }

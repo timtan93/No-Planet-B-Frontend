@@ -1,15 +1,9 @@
 import React from "react";
 import {
-  Alert,
-  ActivityIndicator,
-  AsyncStorage,
   Button,
-  StatusBar,
-  StyleSheet,
   View,
-  TextInput,
   Text,
-  ImageBackground
+
 } from "react-native";
 import API from "../API";
 

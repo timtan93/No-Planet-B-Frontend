@@ -7,7 +7,6 @@ import {
 } from "react-navigation";
 import {
   SimpleLineIcons,
-  FontAwesome,
   AntDesign,
   Entypo
 } from "@expo/vector-icons";
@@ -65,7 +64,7 @@ const MainStack = createBottomTabNavigator({
   CameraStack,
   MapStack,
   OptionsStack,
-  // StyleStack
+  StyleStack
 }, {
   tabBarOptions: {
     showLabel: false,
