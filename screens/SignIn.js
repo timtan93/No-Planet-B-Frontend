@@ -38,18 +38,21 @@ export default class SignInScreen extends React.Component {
       <ImageBackground
         source={require("../app/img/turtle.jpg")}
         style={styles.container}
+        blurRadius={1}
       >
         <TextInput
           value={this.state.email}
           onChangeText={email => this.setState({ email })}
-          placeholder={"email"}
+          placeholder={"Email"}
+          placeholderTextColor={"grey"}
           style={styles.input}
         />
         <TextInput
           value={this.state.password}
           onChangeText={password => this.setState({ password })}
           placeholder={"Password"}
-          //   secureTextEntry={true}
+          secureTextEntry={true}
+          placeholderTextColor={"grey"}
           style={styles.input}
         />
 
