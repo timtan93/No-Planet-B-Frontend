@@ -1,35 +1,36 @@
-import React from 'react';
+import React from "react";
 import {
-  ActivityIndicator,
-  AsyncStorage,
-  Button,
-  StatusBar,
-  StyleSheet,
-  View,
-} from 'react-native';
-import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
+  createStackNavigator,
+  createSwitchNavigator,
+  createAppContainer,
+  createDrawerNavigator
+} from "react-navigation";
 
-import AuthLoadingScreen from './screens/Auth'
+import AuthLoadingScreen from "./screens/Auth";
 
-import SignInScreen from './screens/SignIn'
-import Entry from './screens/Entry'
+import SignInScreen from "./screens/SignIn";
+import Home from "./navigation/Home";
+import HeatMap from "./screens/HeatmapScreen";
+import SignUpScreen from "./screens/SignUpScreen";
+import IntroScreen from "./screens/IntroScreen"
 
-const AuthStack = createStackNavigator({ SignIn: SignInScreen
-}, {
-  headerMode: 'none',
-  navigationOptions: {
-      headerVisible: false,
-  }
+const AuthStack = createSwitchNavigator({
+  Intro: IntroScreen,
+  SignIn: SignInScreen,
+  Welcome: SignUpScreen,
 });
 
-export default createAppContainer(createSwitchNavigator(
+const AppDrawerNavigator = createDrawerNavigator({ Home, HeatMap });
 
-  {
-    AuthLoading: AuthLoadingScreen,
-    App: Entry,
-    Auth: AuthStack,
-  },
-  {
-    initialRouteName: 'AuthLoading',
-  }
-));
+export default createAppContainer(
+  createSwitchNavigator(
+    {
+      AuthLoading: AuthLoadingScreen,
+      App: AppDrawerNavigator,
+      Auth: AuthStack
+    },
+    {
+      initialRouteName: "AuthLoading"
+    }
+  )
+);
