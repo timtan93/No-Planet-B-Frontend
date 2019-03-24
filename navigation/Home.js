@@ -59,7 +59,8 @@ export default class Home extends React.Component {
             longitude: this.state.longitude,
             items: this.state.items,
             signOut: this._signOutAsync,
-            addLoggedItem: this.addLoggedItem
+            addLoggedItem: this.addLoggedItem,
+            openDrawer: this.props.navigation.openDrawer
           }}
         />
       </View>

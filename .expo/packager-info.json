@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 23121,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
   "expoServerNgrokUrl": "https://e3-dhx.anonymous.auth-flow-v3.exp.direct",
   "packagerNgrokUrl": "https://packager.e3-dhx.anonymous.auth-flow-v3.exp.direct",
-  "ngrokPid": 23140,
+  "ngrokPid": 3015,
   "webpackServerPort": null
 }

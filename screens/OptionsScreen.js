@@ -15,9 +15,9 @@ import {
 } from "@expo/vector-icons";
 
 export default class OptionsScreen extends React.Component {
-  static navigationOptions = {
-    tabBarIcon:  <MaterialCommunityIcons name="image-album" size={32} />
-  };
+  // static navigationOptions = {
+  //   tabBarIcon:  <MaterialCommunityIcons name="image-album" size={32} />
+  // };
   
   render() {
     return (

@@ -6,21 +6,23 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  Button
 } from "react-native";
 import { Permissions, ImagePicker } from "expo";
 import { RNS3 } from "react-native-aws3";
 const DeviceWidth = Dimensions.get("window").width;
 export default class HomeScreen extends React.Component {
-  // static navigationOptions = {
-  //   title: "HomeScreen",
-  //   headerStyle: {
-  //     backgroundColor: "#C5C6C7"
-  //   },
-  //   headerTitleStyle: {
-  //     color: 'black'
-  //   }
-  // };
+  static navigationOptions = {
+    title: "HomeScreen",
+    headerStyle: {
+      backgroundColor: "#C5C6C7"
+    },
+    headerTitleStyle: {
+      color: 'black'
+    },
+    // headerLeft:<Button title='drawer' onPress={() => HomeScreen.drawer()}/>
+  };
 
   state = {
     imageURL: null,
@@ -132,6 +134,7 @@ export default class HomeScreen extends React.Component {
           placeholderTextColor={"grey"}
           style={styles.input}
         /> */}
+        {/* <Button title='drawer' onPress={() => this.props.screenProps.openDrawer()}/> */}
         <View>
           <TouchableOpacity onPress={e => this.handleTagSelect("Plastic")}>
             <View style={(style = styles.button)}>

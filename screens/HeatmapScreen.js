@@ -1,42 +1,54 @@
 import React from "react";
 import {
-  Alert,
-  ActivityIndicator,
-  AsyncStorage,
-  Button,
-  StatusBar,
-  StyleSheet,
-  View,
-  TextInput,
-  Text,
-  ImageBackground
-} from "react-native";
-import API from "../API";
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph
+} from 'react-native-chart-kit'
 
-export default class HeatMap extends React.Component {
+import {View ,Text, Dimensions} from 'react-native'
+export default class Chart extends React.Component {
   render() {
     return (
-      <ImageBackground
-        source={require("../app/img/heatmap.png")}
-        style={styles.container}
-      />
+
+<View>
+  <Text>
+    Bezier Line Chart
+  </Text>
+  <LineChart
+    data={{
+      labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+      datasets: [{
+        data: [
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100
+        ]
+      }]
+    }}
+    width={Dimensions.get('window').width} // from react-native
+    height={220}
+    chartConfig={{
+      backgroundColor: '#e26a00',
+      backgroundGradientFrom: '#fb8c00',
+      backgroundGradientTo: '#ffa726',
+      decimalPlaces: 2, // optional, defaults to 2dp
+      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      style: {
+        borderRadius: 16
+      }
+    }}
+    bezier
+    style={{
+      marginVertical: 8,
+      borderRadius: 16
+    }}
+  />
+</View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#ecf0f1"
-  },
-  input: {
-    width: 200,
-    height: 44,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "black",
-    marginBottom: 10
-  }
-});
