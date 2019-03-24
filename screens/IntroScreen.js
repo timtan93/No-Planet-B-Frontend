@@ -66,7 +66,7 @@ export default class DashBoardScreen extends React.Component {
               <Text style={styles.text}>Sign In</Text>
             </View >
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("Welcome")}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("SignUp")}>
             <View style={(style = styles.button)}>
               <Text style={styles.text}>Sign Up</Text>
             </View>

@@ -17,7 +17,7 @@ import IntroScreen from "./screens/IntroScreen"
 const AuthStack = createSwitchNavigator({
   Intro: IntroScreen,
   SignIn: SignInScreen,
-  Welcome: SignUpScreen,
+  SignUp: SignUpScreen,
 });
 
 const AppDrawerNavigator = createDrawerNavigator({ Home, HeatMap });

@@ -9,7 +9,7 @@ import {
   SimpleLineIcons,
   AntDesign,
   Entypo,
-  MaterialCommunityIcons,
+  MaterialCommunityIcons, Icon
 } from "@expo/vector-icons";
 import HomeScreen from "../screens/HomeScreen";
 import CameraScreen from "../screens/CameraScreen";
@@ -79,7 +79,7 @@ const MainStack = createBottomTabNavigator({
 }, {
   tabBarOptions: {
     showLabel: false,
-  },
+  }
 });
 
 const AppContainer = createAppContainer(MainStack);
