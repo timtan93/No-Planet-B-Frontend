@@ -55,7 +55,7 @@ export default class DashBoardScreen extends React.Component {
                 paddingBottom: 20
               }}
             >
-              Geotags provide an into problem areas, while hashtags help identify the most
+              Geotags provide an insight into problem areas, while hashtags help identify the most
               commonly found items. The aim of this app is to collect data and
               work with local councils to find sustainable solutions.
             </Text>

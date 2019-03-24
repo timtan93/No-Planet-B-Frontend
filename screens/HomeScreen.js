@@ -12,15 +12,15 @@ import { Permissions, ImagePicker } from "expo";
 import { RNS3 } from "react-native-aws3";
 const DeviceWidth = Dimensions.get("window").width;
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: "Start Logging",
-    headerStyle: {
-      backgroundColor: "#C5C6C7"
-    },
-    headerTitleStyle: {
-      color: 'black'
-    }
-  };
+  // static navigationOptions = {
+  //   title: "HomeScreen",
+  //   headerStyle: {
+  //     backgroundColor: "#C5C6C7"
+  //   },
+  //   headerTitleStyle: {
+  //     color: 'black'
+  //   }
+  // };
 
   state = {
     imageURL: null,

@@ -9,79 +9,99 @@ import {
   SimpleLineIcons,
   AntDesign,
   Entypo,
-  MaterialCommunityIcons, Icon
+  MaterialCommunityIcons,
+  Icon
 } from "@expo/vector-icons";
 import HomeScreen from "../screens/HomeScreen";
 import CameraScreen from "../screens/CameraScreen";
 import MapScreen from "../screens/MapScreen";
 import OptionsScreen from "../screens/OptionsScreen";
 import StyleScreen from "../screens/StylingCheatSheet";
-import ImagesScreen from "../screens/ImagesScreen"
+import ImagesScreen from "../screens/ImagesScreen";
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen
-});
 
-HomeStack.navigationOptions = {
-  tabBarLabel: "Home",
-  tabBarIcon: ({ focused }) => <AntDesign name="home" size={32} />
-};
+// const HomeStack = createStackNavigator({
+//   Home: HomeScreen
+// });
 
-const CameraStack = createStackNavigator({
-  Camera: CameraScreen
-});
+// HomeStack.navigationOptions = {
+//   tabBarLabel: "Home",
+//   tabBarIcon: ({ focused }) => <AntDesign name="home" size={32} />
+// };
 
-CameraStack.navigationOptions = {
-  tabBarLabel: "Camera",
-  tabBarIcon: ({ focused }) => <AntDesign name="camera" size={32} />
-};
+// const CameraStack = createStackNavigator({
+//   Camera: CameraScreen
+// });
 
-const MapStack = createStackNavigator({
-  Map: MapScreen
-});
+// CameraStack.navigationOptions = {
+//   tabBarLabel: "Camera",
+//   tabBarIcon: ({ focused }) => <AntDesign name="camera" size={32} />
+// };
 
-MapStack.navigationOptions = {
-  tabBarLabel: null,
-  tabBarIcon: ({ focused }) => <Entypo name="map" size={32} />
-};
-const OptionsStack = createStackNavigator({
-  Options: OptionsScreen
-});
+// const MapStack = createStackNavigator({
+//   Map: MapScreen
+// });
 
-OptionsStack.navigationOptions = {
-  tabBarLabel: "Options",
-  tabBarIcon: ({ focused }) => <SimpleLineIcons name="options" size={32} />
-};
+// MapStack.navigationOptions = {
+//   tabBarLabel: null,
+//   tabBarIcon: ({ focused }) => <Entypo name="map" size={32} />
+// };
+// const OptionsStack = createStackNavigator({
+//   Options: OptionsScreen
+// });
 
-const StyleStack = createStackNavigator({
-  Style: StyleScreen
-});
+// OptionsStack.navigationOptions = {
+//   tabBarLabel: "Options",
+//   tabBarIcon: ({ focused }) => <SimpleLineIcons name="options" size={32} />
+// };
 
-StyleStack.navigationOptions = {
-  tabBarLabel: "Style"
-};
+// const StyleStack = createStackNavigator({
+//   Style: StyleScreen
+// });
 
-const ImagesStack = createStackNavigator({
-  Images: ImagesScreen
-});
+// StyleStack.navigationOptions = {
+//   tabBarLabel: "Style"
+// };
 
-ImagesStack.navigationOptions = {
-  tabBarIcon: ({ focused }) => <MaterialCommunityIcons name="image-album" size={32} />
-}
+// const ImagesStack = createStackNavigator({
+//   Images: ImagesScreen
+// });
 
-const MainStack = createBottomTabNavigator({
-  HomeStack,
-  // CameraStack,
-  MapStack,
-  ImagesStack,
-  OptionsStack,
-  // StyleStack
-}, {
-  tabBarOptions: {
-    showLabel: false,
+// ImagesStack.navigationOptions = {
+//   tabBarIcon: ({ focused }) => (
+//     <MaterialCommunityIcons name="image-album" size={32} />
+//   )
+// };
+
+const MainTab = createBottomTabNavigator(
+  {
+    Home: HomeScreen,
+    Map: MapScreen,
+    Images: ImagesScreen,
+    Settings: OptionsScreen
+  },
+  {
+    navigationOptions: ({ navigation }) => {
+      const { routeName } = navigation.state.routes[navigation.state.index];
+      return {
+        headerTitle: routeName,
+      };
+    }
   }
-});
+);
 
-const AppContainer = createAppContainer(MainStack);
+const HomeStackNavigator = createStackNavigator(
+  {
+    MainTabNav: MainTab
+  },
+  // {
+  //   defaultNavigationOptions: ({ navigation }) => {
+  //     return {
+  //       headerLeft: <Icon name="md-menu" size={30} />
+  //     };
+  //   }
+  // }
+);
+const AppContainer = createAppContainer(HomeStackNavigator);
 
 export default AppContainer;

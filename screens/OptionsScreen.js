@@ -6,11 +6,19 @@ import {
   View,
   TouchableOpacity
 } from "react-native";
+import {
+  SimpleLineIcons,
+  AntDesign,
+  Entypo,
+  MaterialCommunityIcons,
+  Icon
+} from "@expo/vector-icons";
 
 export default class OptionsScreen extends React.Component {
   static navigationOptions = {
-    title: "Sign Out?"
+    tabBarIcon:  <MaterialCommunityIcons name="image-album" size={32} />
   };
+  
   render() {
     return (
       <View style={(styles.container)}>

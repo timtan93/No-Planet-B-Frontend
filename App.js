@@ -14,7 +14,7 @@ import HeatMap from "./screens/HeatmapScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import IntroScreen from "./screens/IntroScreen"
 
-const AuthStack = createSwitchNavigator({
+const AuthSwitch = createSwitchNavigator({
   Intro: IntroScreen,
   SignIn: SignInScreen,
   SignUp: SignUpScreen,
@@ -27,7 +27,7 @@ export default createAppContainer(
     {
       AuthLoading: AuthLoadingScreen,
       App: AppDrawerNavigator,
-      Auth: AuthStack
+      Auth: AuthSwitch
     },
     {
       initialRouteName: "AuthLoading"
