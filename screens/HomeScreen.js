@@ -9,19 +9,19 @@ import {
   TextInput,
   Button
 } from "react-native";
+import {
+  AntDesign
+} from "@expo/vector-icons";
 import { Permissions, ImagePicker } from "expo";
 import { RNS3 } from "react-native-aws3";
 const DeviceWidth = Dimensions.get("window").width;
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: "HomeScreen",
-    headerStyle: {
-      backgroundColor: "#C5C6C7"
-    },
-    headerTitleStyle: {
-      color: 'black'
-    },
-    // headerLeft:<Button title='drawer' onPress={() => HomeScreen.drawer()}/>
+    title: "Home",
+    tabBarIcon: ({ focused, tintColor }) => {
+      return <AntDesign name="home" size={25} color={tintColor} />;
+    }
   };
 
   state = {

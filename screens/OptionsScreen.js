@@ -7,17 +7,16 @@ import {
   TouchableOpacity
 } from "react-native";
 import {
-  SimpleLineIcons,
-  AntDesign,
-  Entypo,
-  MaterialCommunityIcons,
-  Icon
+Feather
 } from "@expo/vector-icons";
 
 export default class OptionsScreen extends React.Component {
-  // static navigationOptions = {
-  //   tabBarIcon:  <MaterialCommunityIcons name="image-album" size={32} />
-  // };
+  static navigationOptions = {
+    title: "Settings",
+    tabBarIcon: ({ focused, tintColor }) => {
+      return <Feather name="settings" size={25} color={tintColor} />;
+    }
+  };
   
   render() {
     return (

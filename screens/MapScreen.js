@@ -1,10 +1,15 @@
 import React from "react";
 import { MapView, Constants } from "expo";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
-
+import {
+  Feather,
+} from "@expo/vector-icons";
 export default class Map extends React.Component {
   static navigationOptions = {
-    title: `Map`
+    title: "Map",
+    tabBarIcon: ({ focused, tintColor }) => {
+      return <Feather name="map" size={25} color={tintColor} />;
+    }
   };
 
   render() {
@@ -14,7 +19,7 @@ export default class Map extends React.Component {
     const userItemsMarkers = items.map(item => (
       <MapView.Marker
         coordinate={item}
-        key={item.name}
+        key={item.id}
         title={item.name}
         pinColor={"darkblue"}
       />
