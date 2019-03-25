@@ -1,33 +1,75 @@
-import React from 'react'
-import { LineChart, XAxis, Grid } from 'react-native-svg-charts'
-import { View } from 'react-native'
- 
-export default class XAxisExample extends React.PureComponent {
- 
-    render() {
- 
-        const data = [ 50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80 ]
- 
+import React from "react";
+import { PieChart } from "react-native-svg-charts";
+import { Text } from "react-native-svg";
+
+export default class Chart extends React.PureComponent {
+  componentDidMount() {
+    API.getAllItems().then(items => {
+      this.setState({
+        items: items
+      });
+    });
+  }
+  render() {
+    const data = [
+      {
+        key: 1,
+        amount: 50,
+        svg: { fill: "#600080" }
+      },
+      {
+        key: 2,
+        amount: 50,
+        svg: { fill: "#9900cc" }
+      },
+      {
+        key: 3,
+        amount: 40,
+        svg: { fill: "#c61aff" }
+      },
+      {
+        key: 4,
+        amount: 95,
+        svg: { fill: "#d966ff" }
+      },
+      {
+        key: 5,
+        amount: 35,
+        svg: { fill: "#ecb3ff" }
+      }
+    ];
+
+    const Labels = ({ slices, height, width }) => {
+      return slices.map((slice, index) => {
+        const { labelCentroid, pieCentroid, data } = slice;
         return (
-            <View style={{ height: 200, padding: 20 }}>
-                <LineChart
-                    style={{ flex: 1 }}
-                    data={ data }
-                    gridMin={ 0 }
-                    contentInset={{ top: 10, bottom: 10 }}
-                    svg={{ stroke: 'rgb(134, 65, 244)' }}
-                >
-                    <Grid/>
-                </LineChart>
-                <XAxis
-                    style={{ marginHorizontal: -10 }}
-                    data={ data }
-                    formatLabel={ (value, index) => index }
-                    contentInset={{ left: 10, right: 10 }}
-                    svg={{ fontSize: 10, fill: 'black' }}
-                />
-            </View>
-        )
-    }
+          <Text
+            key={index}
+            x={pieCentroid[0]}
+            y={pieCentroid[1]}
+            fill={"white"}
+            textAnchor={"middle"}
+            alignmentBaseline={"middle"}
+            fontSize={24}
+            stroke={"black"}
+            strokeWidth={0.2}
+          >
+            {data.amount}
+          </Text>
+        );
+      });
+    };
+
+    return (
+      <PieChart
+        style={{ height: 200 }}
+        valueAccessor={({ item }) => item.amount}
+        data={data}
+        spacing={0}
+        outerRadius={"95%"}
+      >
+        <Labels />
+      </PieChart>
+    );
+  }
 }
- 

@@ -36,6 +36,10 @@ export default class HomeScreen extends React.Component {
     return time;
   };
 
+  componentDidMount() {
+    this.galleryHandler()
+  }
+
   handleNoImage = () => {
     item = {
       name: this.state.name,
@@ -69,6 +73,8 @@ export default class HomeScreen extends React.Component {
     const permissions = Permissions.CAMERA_ROLL;
     const { status } = await Permissions.askAsync(permissions);
   }
+
+  
   cameraHandler = async () => {
     this.galleryHandler()
     const permissions = Permissions.CAMERA;
