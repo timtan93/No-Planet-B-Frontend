@@ -36,9 +36,7 @@ export default class HomeScreen extends React.Component {
     return time;
   };
 
-  componentDidMount() {
-    this.galleryHandler()
-  }
+
 
   handleNoImage = () => {
     item = {

@@ -13,7 +13,8 @@ export default class ImageScreen extends React.Component {
   };
   render() {
     const items = this.props.screenProps.items;
-    const userItemImages = items.map(item => {
+    const hasImages = items.filter(item => item.image)
+    const userItemImages = hasImages.map(item => {
       return { uri: item.image}
     })
     return (

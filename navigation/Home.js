@@ -33,7 +33,7 @@ export default class Home extends React.Component {
           items: data
         });
       })
-      .then(this.getLocation());
+      .then(this.getLocation())
   }
   getLocation = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -60,7 +60,7 @@ export default class Home extends React.Component {
             items: this.state.items,
             signOut: this._signOutAsync,
             addLoggedItem: this.addLoggedItem,
-            openDrawer: this.props.navigation.openDrawer
+            openDrawer: this.props.navigation.openDrawer,
           }}
         />
       </View>
@@ -74,3 +74,4 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   }
 });
+

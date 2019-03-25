@@ -119,7 +119,19 @@ const HomeStackNavigator = createStackNavigator(
   }
 );
 
-const AppDrawerNavigator = createDrawerNavigator({Home: HomeStackNavigator, Analytics });
+const AnalyticsStack = createStackNavigator(  {
+  Analytics
+},
+{
+  defaultNavigationOptions: ({ navigation }) => {
+    return {
+      headerLeft: <Entypo onPress={() => navigation.toggleDrawer()} style={{ paddingLeft: 10 }}name="menu" size={30} />
+    };
+  }
+}
+)
+
+const AppDrawerNavigator = createDrawerNavigator({Home: HomeStackNavigator, Analytics: AnalyticsStack });
 
 const AppContainer = createAppContainer(AppDrawerNavigator);
 

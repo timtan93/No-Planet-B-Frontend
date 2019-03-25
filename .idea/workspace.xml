@@ -4,11 +4,11 @@
     <list default="true" id="b9499f5b-3e55-4399-b51a-bbed0bf2d427" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.expo/packager-info.json" beforeDir="false" afterPath="$PROJECT_DIR$/.expo/packager-info.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API.js" beforeDir="false" afterPath="$PROJECT_DIR$/API.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/navigation/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/navigation/Home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/navigation/MainTabNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/navigation/MainTabNav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/AnalyticsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/AnalyticsScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/ImagesScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/ImagesScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/MapScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/MapScreen.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,10 +20,11 @@
     <session id="-779066351">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
-          <entry key="project.open.time.3" value="4" />
-          <entry key="project.open.time.4" value="4" />
-          <entry key="project.opened" value="8" />
+          <entry key="project.closed" value="12" />
+          <entry key="project.open.time.2" value="2" />
+          <entry key="project.open.time.3" value="5" />
+          <entry key="project.open.time.4" value="5" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
     </session>
@@ -41,9 +42,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
