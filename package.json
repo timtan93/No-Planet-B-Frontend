@@ -12,6 +12,7 @@
     "react-native-aws3": "0.0.8",
     "react-native-chart-kit": "^2.3.0",
     "react-native-image-layout": "^4.2.1",
+    "react-native-svg-charts": "^5.2.0",
     "react-navigation": "3.0.0-rc.5"
   }
 }

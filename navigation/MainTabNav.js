@@ -20,7 +20,8 @@ import MapScreen from "../screens/MapScreen";
 import OptionsScreen from "../screens/OptionsScreen";
 import StyleScreen from "../screens/StylingCheatSheet";
 import ImagesScreen from "../screens/ImagesScreen";
-import Analytics from '../screens/HeatmapScreen'
+
+import Analytics from '../screens/AnalyticsScreen'
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 

@@ -35,6 +35,10 @@ class API {
       body: JSON.stringify(item)
     }).then(data => data.json());
   };
+
+  static getAllItems() {
+    return this.get("http:/10.218.7.168:3000/allitems")
+  }
 }
 
 window.API = API;
