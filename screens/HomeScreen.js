@@ -6,14 +6,22 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  Button
 } from "react-native";
+import {
+  AntDesign
+} from "@expo/vector-icons";
 import { Permissions, ImagePicker } from "expo";
 import { RNS3 } from "react-native-aws3";
 const DeviceWidth = Dimensions.get("window").width;
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: "Start Logging"
+    title: "Home",
+    tabBarIcon: ({ focused, tintColor }) => {
+      return <AntDesign name="home" size={25} color={tintColor} />;
+    }
   };
 
   state = {
@@ -28,6 +36,8 @@ export default class HomeScreen extends React.Component {
     return time;
   };
 
+
+
   handleNoImage = () => {
     item = {
       name: this.state.name,
@@ -35,7 +45,8 @@ export default class HomeScreen extends React.Component {
       longitude: this.props.screenProps.longitude,
       image: null
     };
-    API.logItem(item);
+    API.logItem(item).then(item =>
+      this.props.screenProps.addLoggedItem(item))
   };
 
   handleTagSelect(name) {
@@ -56,9 +67,14 @@ export default class HomeScreen extends React.Component {
       { cancelable: false }
     );
   }
+  galleryHandler = async () => {
+    const permissions = Permissions.CAMERA_ROLL;
+    const { status } = await Permissions.askAsync(permissions);
+  }
 
+  
   cameraHandler = async () => {
-    console.log("hi");
+    this.galleryHandler()
     const permissions = Permissions.CAMERA;
     const { status } = await Permissions.askAsync(permissions);
     console.log(permissions, status);
@@ -72,8 +88,8 @@ export default class HomeScreen extends React.Component {
         uri: image.uri
       });
       console.log(permissions, "SUCCESS", image);
-    }
     this.handleSelectedImage();
+  }
   };
 
   handleSelectedImage = () => {
@@ -126,6 +142,7 @@ export default class HomeScreen extends React.Component {
           placeholderTextColor={"grey"}
           style={styles.input}
         /> */}
+        {/* <Button title='drawer' onPress={() => this.props.screenProps.openDrawer()}/> */}
         <View>
           <TouchableOpacity onPress={e => this.handleTagSelect("Plastic")}>
             <View style={(style = styles.button)}>

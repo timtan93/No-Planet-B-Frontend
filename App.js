@@ -5,29 +5,30 @@ import {
   createAppContainer,
   createDrawerNavigator
 } from "react-navigation";
+import { Icon } from "@expo/vector-icons"
 
 import AuthLoadingScreen from "./screens/Auth";
 
 import SignInScreen from "./screens/SignIn";
 import Home from "./navigation/Home";
-import HeatMap from "./screens/HeatmapScreen";
+import Analytics from "./screens/HeatmapScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import IntroScreen from "./screens/IntroScreen"
 
-const AuthStack = createSwitchNavigator({
+const AuthSwitch = createSwitchNavigator({
   Intro: IntroScreen,
   SignIn: SignInScreen,
-  Welcome: SignUpScreen,
+  SignUp: SignUpScreen,
 });
 
-const AppDrawerNavigator = createDrawerNavigator({ Home, HeatMap });
+
 
 export default createAppContainer(
   createSwitchNavigator(
     {
       AuthLoading: AuthLoadingScreen,
-      App: AppDrawerNavigator,
-      Auth: AuthStack
+      App: Home,
+      Auth: AuthSwitch
     },
     {
       initialRouteName: "AuthLoading"

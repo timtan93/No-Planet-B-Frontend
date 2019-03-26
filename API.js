@@ -3,7 +3,7 @@ import { AsyncStorage } from "react-native";
 class API {
 
   static signin(user) {
-    return fetch(`http://192.168.1.68:3000/signin`, {
+    return fetch(`http://10.218.7.168:3000/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user)
@@ -11,11 +11,11 @@ class API {
   }
 
   static validate() {
-    return this.get("http://192.168.1.68:3000/validate");
+    return this.get("http://10.218.7.168:3000/validate");
   }
 
   static getItems() {
-    return this.get("http:/192.168.1.68:3000/items");
+    return this.get("http:/10.218.7.168:3000/items");
   }
 
   static get = async url => {
@@ -29,12 +29,16 @@ class API {
 
   static logItem = async item => {
     const userToken = await AsyncStorage.getItem("token");
-    return fetch(`http://192.168.1.68:3000/items`, {
+    return fetch(`http://10.218.7.168:3000/items`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: userToken },
       body: JSON.stringify(item)
     }).then(data => data.json());
   };
+
+  static getAllItems() {
+    return this.get("http:/10.218.7.168:3000/allitems")
+  }
 }
 
 window.API = API;

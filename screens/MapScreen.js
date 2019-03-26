@@ -1,12 +1,78 @@
 import React from "react";
 import { MapView, Constants } from "expo";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
+import { Feather } from "@expo/vector-icons";
+
 
 export default class Map extends React.Component {
   static navigationOptions = {
-    title: `Map`
+    title: "Map",
+    tabBarIcon: ({ focused, tintColor }) => {
+      return <Feather name="map" size={25} color={tintColor} />;
+    }
   };
 
+  pinImage = (name) => {
+    switch (name) {
+      case "Plastic":
+        return require('../app/img/plastic.png');
+        break;
+      case "Can":
+        return require('../app/img/can.png');
+        break;
+      case "BottleCap":
+        return require('../app/img/bottlecap.png');
+        break;
+      case "Cigarette":
+        return require('../app/img/cigarette.png');
+        break;
+      case "Bottle":
+        return require('../app/img/bottle.png');
+        break;
+      case "Cup":
+        return require('../app/img/cup.png');
+        break;
+      case "Paper":
+        return require('../app/img/paper.png');
+        break;
+      case "Bag":
+        return require('../app/img/bag.png');
+        break;
+      case "Straw":
+        return require('../app/img/straw.png');
+    }
+  };
+
+  pinColor = (name) => {
+    switch (name) {
+      case "Plastic":
+        return "red";
+        break;
+      case "Can":
+        return "blue";
+        break;
+      case "BottleCap":
+        return "green";
+        break;
+      case "Cigarette":
+        return "cyan";
+        break;
+      case "Bottle":
+        return "orange";
+        break;
+      case "Cup":
+        return "yellow";
+        break;
+      case "Paper":
+        return "purple";
+        break;
+      case "Bag":
+        return "lightblue";
+        break;
+      case "Straw":
+        return "khaki";
+    }
+  };
   render() {
     const latitude = this.props.screenProps.latitude;
     const longitude = this.props.screenProps.longitude;
@@ -14,11 +80,13 @@ export default class Map extends React.Component {
     const userItemsMarkers = items.map(item => (
       <MapView.Marker
         coordinate={item}
-        key={item.name}
+        key={item.id}
         title={item.name}
-        pinColor={"darkblue"}
+
+        image={this.pinImage(item.name)}
       />
     ));
+
     // const userItemImages = items.map(item => (
     //   <Image
     //     source={{ uri: item.image, width: 300, height: 300 }}
@@ -27,23 +95,23 @@ export default class Map extends React.Component {
     // ));
     return (
       // <View style={styles.container}>
-        <MapView
-          style={{
-            // width: 420,
-            // height: 400,
-            // paddingTop: Constants.statusBarHeight
-            flex: 1
-          }}
-          initialRegion={{
-            latitude: latitude,
-            longitude: longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
-          }}
-        >
-          {userItemsMarkers}
-        </MapView>
-        /* <ScrollView contentContainerStyle={styles.contentContainer}>
+      <MapView
+        style={{
+          // width: 420,
+          // height: 400,
+          // paddingTop: Constants.statusBarHeight
+          flex: 1
+        }}
+        initialRegion={{
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421
+        }}
+      >
+        {userItemsMarkers}
+      </MapView>
+      /* <ScrollView contentContainerStyle={styles.contentContainer}>
           {userItemImages}
         </ScrollView> */
       // </View>
