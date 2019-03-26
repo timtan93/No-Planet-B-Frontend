@@ -1,9 +1,9 @@
 import React from "react";
 import { BarChart, Grid, YAxis } from "react-native-svg-charts";
 import * as scale from "d3-scale";
-import { View, StyleSheet, ScrollView, Text } from "react-native";
+import { View, StyleSheet, ScrollView, Text, TouchableOpacity } from "react-native";
 import { MapView } from "expo";
-
+import { FontAwesome } from "@expo/vector-icons";
 export default class Chart extends React.PureComponent {
   static navigationOptions = {
     title: "Analytics"
@@ -14,6 +14,14 @@ export default class Chart extends React.PureComponent {
   };
 
   componentDidMount() {
+    API.getAllItems().then(items => {
+      this.setState({
+        items: items
+      });
+    });
+  }
+
+  refresh = () => {
     API.getAllItems().then(items => {
       this.setState({
         items: items
@@ -181,6 +189,9 @@ export default class Chart extends React.PureComponent {
              svg={{ fill: "grey" }} />
           </BarChart>
         </View>
+        <TouchableOpacity style={{paddingLeft: 20}} onPress={() =>this.refresh() }>
+        <FontAwesome name="refresh" size={90} color="green" />
+        </TouchableOpacity>
       </View>
     );
   }

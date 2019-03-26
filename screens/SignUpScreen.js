@@ -14,28 +14,36 @@ import API from "../API";
 
 export default class SignInScreen extends React.Component {
   state = {
+    first_name: "",
+    second_name: "",
     email: "",
-    passwordone: "",
-    passwordtwo: ""
+    password: ""
+    // passwordtwo: ""
   };
 
   SignUp = () => {
-    this.props.navigation.navigate("SignUp");
+    API.signup(this.state).then(data => {
+      if (data.error) {
+        Alert.alert(data.error);
+      } else {
+        this.props.navigation.navigate("SignIn")
+      }
+    });
   };
   _signInAsync = async data => {
     await AsyncStorage.setItem("token", data.token);
     this.props.navigation.navigate("App");
   };
 
-  onLogin() {
-    API.signin(this.state).then(data => {
-      if (data.error) {
-        Alert.alert(data.error);
-      } else {
-        this._signInAsync(data);
-      }
-    });
-  }
+  // onLogin() {
+  //   API.signin(this.state).then(data => {
+  //     if (data.error) {
+  //       Alert.alert(data.error);
+  //     } else {
+  //       this.props.navigation.navigate("SignIn")
+  //     }
+  //   });
+  // }
 
   render() {
     return (
@@ -45,6 +53,20 @@ export default class SignInScreen extends React.Component {
         blurRadius={1}
       >
         <TextInput
+          value={this.state.first_name}
+          onChangeText={first_name => this.setState({ first_name })}
+          placeholder={"First Name"}
+          placeholderTextColor={"grey"}
+          style={styles.input}
+        />
+        <TextInput
+          value={this.state.second_name}
+          onChangeText={second_name => this.setState({ second_name })}
+          placeholder={"Second Name"}
+          placeholderTextColor={"grey"}
+          style={styles.input}
+        />
+        <TextInput
           value={this.state.email}
           onChangeText={email => this.setState({ email })}
           placeholder={"Email"}
@@ -52,21 +74,21 @@ export default class SignInScreen extends React.Component {
           style={styles.input}
         />
         <TextInput
-          value={this.state.passwordone}
-          onChangeText={passwordone => this.setState({ passwordone })}
+          value={this.state.password}
+          onChangeText={password => this.setState({ password })}
           placeholder={"Select a Password"}
           secureTextEntry={true}
           placeholderTextColor={"grey"}
           style={styles.input}
         />
-        <TextInput
+        {/* <TextInput
           value={this.state.passwordtwo}
           onChangeText={passwordtwo => this.setState({ passwordtwo })}
           placeholder={"Verify"}
           secureTextEntry={true}
           placeholderTextColor={"grey"}
           style={styles.input}
-        />
+        /> */}
 
         {/* <Button
           title={"Login"}
@@ -80,18 +102,18 @@ export default class SignInScreen extends React.Component {
         /> */}
         <TouchableOpacity
           style={{ paddingBottom: 10 }}
-          onPress={() => this.props.navigation.navigate("SignIn")}
+          onPress={() =>  this.SignUp()}
         >
           <View style={(style = styles.button)}>
-            <Text style={styles.text}>Sign In</Text>
+            <Text style={styles.text}>Sign Up</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
           style={{ paddingBottom: 10 }}
-          onPress={this.onLogin.bind(this)}
+          onPress={() => this.props.navigation.navigate("SignIn")}
         >
           <View style={(style = styles.button)}>
-            <Text style={styles.text}>Sign Up</Text>
+            <Text style={styles.text}>Sign In</Text>
           </View>
         </TouchableOpacity>
       </ImageBackground>

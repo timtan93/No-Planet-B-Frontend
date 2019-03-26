@@ -9,9 +9,7 @@ import {
   TextInput,
   Button
 } from "react-native";
-import {
-  AntDesign
-} from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { Permissions, ImagePicker } from "expo";
 import { RNS3 } from "react-native-aws3";
 const DeviceWidth = Dimensions.get("window").width;
@@ -27,16 +25,17 @@ export default class HomeScreen extends React.Component {
   state = {
     imageURL: null,
     uri: null,
-    name: null
+    name: null,
+    thisWeek: null,
   };
+  
+
   getCurrentTime = () => {
     var today = new Date();
     var time =
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     return time;
   };
-
-
 
   handleNoImage = () => {
     item = {
@@ -45,8 +44,7 @@ export default class HomeScreen extends React.Component {
       longitude: this.props.screenProps.longitude,
       image: null
     };
-    API.logItem(item).then(item =>
-      this.props.screenProps.addLoggedItem(item))
+    API.logItem(item).then(item => this.props.screenProps.addLoggedItem(item));
   };
 
   handleTagSelect(name) {
@@ -70,11 +68,10 @@ export default class HomeScreen extends React.Component {
   galleryHandler = async () => {
     const permissions = Permissions.CAMERA_ROLL;
     const { status } = await Permissions.askAsync(permissions);
-  }
+  };
 
-  
   cameraHandler = async () => {
-    this.galleryHandler()
+    this.galleryHandler();
     const permissions = Permissions.CAMERA;
     const { status } = await Permissions.askAsync(permissions);
     console.log(permissions, status);
@@ -88,8 +85,8 @@ export default class HomeScreen extends React.Component {
         uri: image.uri
       });
       console.log(permissions, "SUCCESS", image);
-    this.handleSelectedImage();
-  }
+      this.handleSelectedImage();
+    }
   };
 
   handleSelectedImage = () => {
@@ -132,17 +129,11 @@ export default class HomeScreen extends React.Component {
       // this.popUp()
     });
   };
+
+
   render() {
     return (
-      <View style={styles.container}>
-        {/* <TextInput
-          value={this.state.name}
-          onChangeText={name => this.setState({ name })}
-          placeholder={"Tag"}
-          placeholderTextColor={"grey"}
-          style={styles.input}
-        /> */}
-        {/* <Button title='drawer' onPress={() => this.props.screenProps.openDrawer()}/> */}
+      <View style={styles.buttonContainer}>
         <View>
           <TouchableOpacity onPress={e => this.handleTagSelect("Plastic")}>
             <View style={(style = styles.button)}>
@@ -200,7 +191,8 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  
+  buttonContainer: {
     flexDirection: "row",
     flex: 1,
     justifyContent: "center",

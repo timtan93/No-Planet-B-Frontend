@@ -35,6 +35,8 @@ export default class Home extends React.Component {
       })
       .then(this.getLocation())
   }
+
+
   getLocation = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== "granted") {
