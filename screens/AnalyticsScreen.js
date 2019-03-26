@@ -3,6 +3,7 @@ import { BarChart, Grid, YAxis, PieChart } from "react-native-svg-charts";
 import * as scale from "d3-scale";
 import { View, StyleSheet, ScrollView, Text, TouchableOpacity, Dimensions } from "react-native";
 import { MapView } from "expo";
+import { DataTable } from 'react-native-paper';
 import { FontAwesome } from "@expo/vector-icons";
 const DeviceWidth = Dimensions.get("window").width;
 const DeviceHeight = Dimensions.get("window").height;
@@ -168,29 +169,24 @@ export default class Chart extends React.PureComponent {
         <View
           style={{ flexDirection: "row", height: DeviceHeight*0.4, paddingVertical: 16,  width: DeviceWidth*0.9, alignSelf: 'center' }}
         >
-          <YAxis
-            data={data}
-            yAccessor={({ index }) => index}
-            scale={scale.scaleBand}
-            contentInset={{ top: 10, bottom: 10 }}
-            spacing={0.5}
-            formatLabel={(_, index) => data[index].label}
-            svg={{ fill: "grey" }}
-          />
-          <BarChart
-            style={{ flex: 1, marginLeft: 8, borderRadius: 100}}
-            data={data}
-            horizontal={true}
-            yAccessor={({ item }) => item.value}
-            svg={{ fill: "#66FCF1" }}
-            contentInset={{ top: 10, bottom: 10 }}
-            spacing={0.2}
-            gridMin={0}
-            
-          >
-            {/* <Grid direction={Grid.Direction.VERTICAL}
-             svg={{ fill: "grey" }} /> */}
-          </BarChart>
+           <DataTable style={{borderRadius: 10, backgroundColor:"#66FCF1"}}>
+        <DataTable.Header>
+          <DataTable.Title>Tag</DataTable.Title>
+          <DataTable.Title numeric>Percentage</DataTable.Title>
+        </DataTable.Header>
+
+        <DataTable.Row>
+          <DataTable.Cell>Plastic</DataTable.Cell>
+          <DataTable.Cell numeric>50%</DataTable.Cell>
+        </DataTable.Row>
+
+        <DataTable.Row>
+          <DataTable.Cell>Bag</DataTable.Cell>
+          <DataTable.Cell numeric>50%</DataTable.Cell>
+        </DataTable.Row>
+
+
+      </DataTable>
         </View>
         <TouchableOpacity style={{paddingLeft: 20, flexDirection: 'row'}} onPress={() =>this.refresh() }>
         <FontAwesome name="refresh" size={50} color="green" />

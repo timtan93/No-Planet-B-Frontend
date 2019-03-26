@@ -205,8 +205,7 @@
 // }
 import React from 'react'
 import { PieChart } from 'react-native-svg-charts'
-import { Circle, G, Image } from 'react-native-svg'
-import Images from '../app/img/plastic.png'
+import { Text } from 'react-native-svg'
 
 class PieChartWithCenteredLabels extends React.PureComponent {
 
@@ -214,7 +213,7 @@ class PieChartWithCenteredLabels extends React.PureComponent {
 
         const data = [
             {
-                key: 1,
+                key: 'plastic',
                 amount: 50,
                 svg: { fill: '#600080' },
             },
@@ -237,53 +236,26 @@ class PieChartWithCenteredLabels extends React.PureComponent {
                 key: 5,
                 amount: 35,
                 svg: { fill: '#ecb3ff' }
-            },
-            {
-              key: 6,
-              amount: 45,
-              svg: { fill: '#ecb3ff' }
-          },
-          {
-            key: 7,
-            amount: 25,
-            svg: { fill: '#ecb3ff' }
-        }
-        ,
-            {
-              key: 8,
-              amount: 45,
-              svg: { fill: '#ecb3ff' }
-          },
-          {
-            key: 9,
-            amount: 25,
-            svg: { fill: '#ecb3ff' }
-        }
+            }
         ]
 
         const Labels = ({ slices, height, width }) => {
             return slices.map((slice, index) => {
                 const { labelCentroid, pieCentroid, data } = slice;
                 return (
-                    <G
+                    <Text
                         key={index}
-                        x={labelCentroid[ 0 ]}
-                        y={labelCentroid[ 1 ]}
+                        x={pieCentroid[ 0 ]}
+                        y={pieCentroid[ 1 ]}
+                        fill={'white'}
+                        textAnchor={'middle'}
+                        alignmentBaseline={'middle'}
+                        fontSize={20}
+                        stroke={'black'}
+                        strokeWidth={0.2}
                     >
-                        {/* <Circle
-                            r={18}
-                            fill={'white'}
-                        /> */}
-                        <Image
-                            x={-10}
-                            y={-10}
-                            width={20}
-                            height={20}
-                            preserveAspectRatio="xMidYMid slice"
-                            opacity="1"
-                            href={Images}
-                        />
-                    </G>
+                        {data.key}
+                    </Text>
                 )
             })
         }
