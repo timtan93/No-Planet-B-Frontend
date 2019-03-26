@@ -1,9 +1,11 @@
 import React from "react";
-import { BarChart, Grid, YAxis } from "react-native-svg-charts";
+import { BarChart, Grid, YAxis, PieChart } from "react-native-svg-charts";
 import * as scale from "d3-scale";
-import { View, StyleSheet, ScrollView, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, ScrollView, Text, TouchableOpacity, Dimensions } from "react-native";
 import { MapView } from "expo";
 import { FontAwesome } from "@expo/vector-icons";
+const DeviceWidth = Dimensions.get("window").width;
+const DeviceHeight = Dimensions.get("window").height;
 export default class Chart extends React.PureComponent {
   static navigationOptions = {
     title: "Analytics"
@@ -152,7 +154,7 @@ export default class Chart extends React.PureComponent {
     return (
       <View style={{flex: 1, backgroundColor: "#1F2833"}}>
         <MapView
-          style={{ alignSelf: "stretch", height: 400 }}
+          style={{ alignSelf: "stretch", height: DeviceHeight*0.4 }}
           region={{
             latitude: latitude,
             longitude: longitude,
@@ -162,9 +164,9 @@ export default class Chart extends React.PureComponent {
         >
           {itemMarkers}
         </MapView>
-        <View style={{ paddingTop: 20 }} />
+        <View style={{ paddingTop: 10 }} />
         <View
-          style={{ flexDirection: "row", height: 200, paddingVertical: 16, width: 400 }}
+          style={{ flexDirection: "row", height: DeviceHeight*0.4, paddingVertical: 16,  width: DeviceWidth*0.9, alignSelf: 'center' }}
         >
           <YAxis
             data={data}
@@ -176,7 +178,7 @@ export default class Chart extends React.PureComponent {
             svg={{ fill: "grey" }}
           />
           <BarChart
-            style={{ flex: 1, marginLeft: 8 }}
+            style={{ flex: 1, marginLeft: 8, borderRadius: 100}}
             data={data}
             horizontal={true}
             yAccessor={({ item }) => item.value}
@@ -184,13 +186,15 @@ export default class Chart extends React.PureComponent {
             contentInset={{ top: 10, bottom: 10 }}
             spacing={0.2}
             gridMin={0}
+            
           >
-            <Grid direction={Grid.Direction.VERTICAL}
-             svg={{ fill: "grey" }} />
+            {/* <Grid direction={Grid.Direction.VERTICAL}
+             svg={{ fill: "grey" }} /> */}
           </BarChart>
         </View>
-        <TouchableOpacity style={{paddingLeft: 20}} onPress={() =>this.refresh() }>
-        <FontAwesome name="refresh" size={90} color="green" />
+        <TouchableOpacity style={{paddingLeft: 20, flexDirection: 'row'}} onPress={() =>this.refresh() }>
+        <FontAwesome name="refresh" size={50} color="green" />
+        <Text style={{paddingTop: 16, color: 'green'}}> Refresh Data </Text>
         </TouchableOpacity>
       </View>
     );

@@ -1,5 +1,5 @@
 // //This is an example code to show image in a button//
-import React, { Component } from "react";
+// import React, { Component } from "react";
 // //import react in our code.
 
 // import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
@@ -150,56 +150,157 @@ import React, { Component } from "react";
 //     );
 //   }
 // }
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph
-} from 'react-native-chart-kit'
+// import {
+//   LineChart,
+//   BarChart,
+//   PieChart,
+//   ProgressChart,
+//   ContributionGraph
+// } from 'react-native-chart-kit'
 
-import {View ,Text, Dimensions} from 'react-native'
-export default class Chart extends React.Component {
-  render() {
-    return (
+// import {View ,Text, Dimensions} from 'react-native'
+// export default class Chart extends React.Component {
+//   render() {
+//     return (
 
-<View>
-  <Text>
-    Bezier Line Chart
-  </Text>
-  <LineChart
-    data={{
-      labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-      datasets: [{
-        data: [
-          Math.random() * 100,
-          Math.random() * 100,
-          Math.random() * 100,
-          Math.random() * 100,
-          Math.random() * 100,
-          Math.random() * 100
+// <View>
+//   <Text>
+//     Bezier Line Chart
+//   </Text>
+//   <LineChart
+//     data={{
+//       labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+//       datasets: [{
+//         data: [
+//           Math.random() * 100,
+//           Math.random() * 100,
+//           Math.random() * 100,
+//           Math.random() * 100,
+//           Math.random() * 100,
+//           Math.random() * 100
+//         ]
+//       }]
+//     }}
+//     width={Dimensions.get('window').width} // from react-native
+//     height={220}
+//     chartConfig={{
+//       backgroundColor: '#e26a00',
+//       backgroundGradientFrom: '#fb8c00',
+//       backgroundGradientTo: '#ffa726',
+//       decimalPlaces: 2, // optional, defaults to 2dp
+//       color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+//       style: {
+//         borderRadius: 16
+//       }
+//     }}
+//     bezier
+//     style={{
+//       marginVertical: 8,
+//       borderRadius: 16
+//     }}
+//   />
+// </View>
+//     );
+//   }
+// }
+import React from 'react'
+import { PieChart } from 'react-native-svg-charts'
+import { Circle, G, Image } from 'react-native-svg'
+import Images from '../app/img/plastic.png'
+
+class PieChartWithCenteredLabels extends React.PureComponent {
+
+    render() {
+
+        const data = [
+            {
+                key: 1,
+                amount: 50,
+                svg: { fill: '#600080' },
+            },
+            {
+                key: 2,
+                amount: 50,
+                svg: { fill: '#9900cc' }
+            },
+            {
+                key: 3,
+                amount: 40,
+                svg: { fill: '#c61aff' }
+            },
+            {
+                key: 4,
+                amount: 95,
+                svg: { fill: '#d966ff' }
+            },
+            {
+                key: 5,
+                amount: 35,
+                svg: { fill: '#ecb3ff' }
+            },
+            {
+              key: 6,
+              amount: 45,
+              svg: { fill: '#ecb3ff' }
+          },
+          {
+            key: 7,
+            amount: 25,
+            svg: { fill: '#ecb3ff' }
+        }
+        ,
+            {
+              key: 8,
+              amount: 45,
+              svg: { fill: '#ecb3ff' }
+          },
+          {
+            key: 9,
+            amount: 25,
+            svg: { fill: '#ecb3ff' }
+        }
         ]
-      }]
-    }}
-    width={Dimensions.get('window').width} // from react-native
-    height={220}
-    chartConfig={{
-      backgroundColor: '#e26a00',
-      backgroundGradientFrom: '#fb8c00',
-      backgroundGradientTo: '#ffa726',
-      decimalPlaces: 2, // optional, defaults to 2dp
-      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-      style: {
-        borderRadius: 16
-      }
-    }}
-    bezier
-    style={{
-      marginVertical: 8,
-      borderRadius: 16
-    }}
-  />
-</View>
-    );
-  }
+
+        const Labels = ({ slices, height, width }) => {
+            return slices.map((slice, index) => {
+                const { labelCentroid, pieCentroid, data } = slice;
+                return (
+                    <G
+                        key={index}
+                        x={labelCentroid[ 0 ]}
+                        y={labelCentroid[ 1 ]}
+                    >
+                        {/* <Circle
+                            r={18}
+                            fill={'white'}
+                        /> */}
+                        <Image
+                            x={-10}
+                            y={-10}
+                            width={20}
+                            height={20}
+                            preserveAspectRatio="xMidYMid slice"
+                            opacity="1"
+                            href={Images}
+                        />
+                    </G>
+                )
+            })
+        }
+
+        return (
+            <PieChart
+                style={{ height: 200 }}
+                valueAccessor={({ item }) => item.amount}
+                data={data}
+                spacing={0}
+                outerRadius={'95%'}
+            >
+                <Labels/>
+            </PieChart>
+        )
+    }
+
 }
+
+export default PieChartWithCenteredLabels

@@ -9,6 +9,8 @@ import {
   TextInput,
   Button
 } from "react-native";
+import { ProgressCircle } from "react-native-svg-charts";
+
 import { AntDesign } from "@expo/vector-icons";
 import { Permissions, ImagePicker } from "expo";
 import { RNS3 } from "react-native-aws3";
@@ -25,10 +27,8 @@ export default class HomeScreen extends React.Component {
   state = {
     imageURL: null,
     uri: null,
-    name: null,
-    thisWeek: null,
+    name: null
   };
-  
 
   getCurrentTime = () => {
     var today = new Date();
@@ -130,60 +130,93 @@ export default class HomeScreen extends React.Component {
     });
   };
 
+  dates = () => {
+    const items = this.props.screenProps.items;
+    const unformattedDates = items.map(item => item.created_at);
+    const dates = unformattedDates.map(unformattedDate =>
+      unformattedDate.slice(0, 10)
+    );
+    const today = new Date();
+    const lastweek= new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const dd = String(lastweek.getDate()).padStart(2, "0");
+    const mm = String(lastweek.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = lastweek.getFullYear();
+
+    const dateLastWeek = yyyy + "-" + mm + "-" + dd;
+    
+    const week = dates.filter(date => date > dateLastWeek )
+    return week.length
+  };
 
   render() {
+    const number = this.dates() 
     return (
-      <View style={styles.buttonContainer}>
-        <View>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Plastic")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Plastic</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Cigarette")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Cigarette</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Paper")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Paper</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Can")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Can</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Bottle")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Bottle</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Bag")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Bag</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Bottlecap")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>BottleCap</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Cup")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Cup</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Straw")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Straw</Text>
-            </View>
-          </TouchableOpacity>
+      <View style={styles.container}>
+        <Text style={styles.header}>
+          You have logged {number} items items in the last week{" "}
+        </Text>
+        <ProgressCircle
+          style={{ height: 200 }}
+          progress={number/7}
+          progressColor={"#66FCF1"}
+          // backgroundColor={"#1F2833"}
+          strokeWidth={20}
+        />
+          <Text style={styles.header}>
+          Select the most relevant tag to start logging litter
+        </Text>
+        <View style={styles.buttonContainer}>
+          <View>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Plastic")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Plastic</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Cigarette")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Cigarette</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Paper")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Paper</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Can")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Can</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Bottle")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Bottle</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Bag")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Bag</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Bottlecap")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>BottleCap</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Cup")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Cup</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Straw")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Straw</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -191,13 +224,15 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  
+  container: {
+    flex: 1,
+    backgroundColor: "#1F2833"
+  },
   buttonContainer: {
     flexDirection: "row",
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#1F2833"
+    alignItems: "center"
   },
   button: {
     width: DeviceWidth * 0.2,
@@ -211,5 +246,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: "bold"
+  },
+  header: {
+    fontSize: 15,
+    color: "white",
+    alignSelf: "center",
+    paddingTop: 20,
+    paddingBottom: 20,
+
   }
 });

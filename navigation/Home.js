@@ -11,7 +11,7 @@ export default class Home extends React.Component {
   state = {
     items: [],
     latitude: null,
-    longitude: null
+    longitude: null,
   };
 
   _signOutAsync = async () => {
@@ -33,9 +33,9 @@ export default class Home extends React.Component {
           items: data
         });
       })
-      .then(this.getLocation())
-  }
+      .then((data) => this.getLocation())
 
+  }
 
   getLocation = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
