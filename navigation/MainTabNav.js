@@ -88,7 +88,8 @@ const MainTab = createBottomTabNavigator(
     Home: HomeScreen,
     Map: MapScreen,
     Images: ImagesScreen,
-    Settings: OptionsScreen
+    Settings: OptionsScreen,
+    Styling: StyleScreen
   },
   {
     navigationOptions: ({ navigation }) => {

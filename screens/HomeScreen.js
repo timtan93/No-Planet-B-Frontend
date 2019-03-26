@@ -9,9 +9,9 @@ import {
   TextInput,
   Button
 } from "react-native";
-import {
-  AntDesign
-} from "@expo/vector-icons";
+import { ProgressCircle } from "react-native-svg-charts";
+
+import { AntDesign } from "@expo/vector-icons";
 import { Permissions, ImagePicker } from "expo";
 import { RNS3 } from "react-native-aws3";
 const DeviceWidth = Dimensions.get("window").width;
@@ -29,14 +29,13 @@ export default class HomeScreen extends React.Component {
     uri: null,
     name: null
   };
+
   getCurrentTime = () => {
     var today = new Date();
     var time =
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     return time;
   };
-
-
 
   handleNoImage = () => {
     item = {
@@ -45,8 +44,7 @@ export default class HomeScreen extends React.Component {
       longitude: this.props.screenProps.longitude,
       image: null
     };
-    API.logItem(item).then(item =>
-      this.props.screenProps.addLoggedItem(item))
+    API.logItem(item).then(item => this.props.screenProps.addLoggedItem(item));
   };
 
   handleTagSelect(name) {
@@ -70,11 +68,10 @@ export default class HomeScreen extends React.Component {
   galleryHandler = async () => {
     const permissions = Permissions.CAMERA_ROLL;
     const { status } = await Permissions.askAsync(permissions);
-  }
+  };
 
-  
   cameraHandler = async () => {
-    this.galleryHandler()
+    this.galleryHandler();
     const permissions = Permissions.CAMERA;
     const { status } = await Permissions.askAsync(permissions);
     console.log(permissions, status);
@@ -88,8 +85,8 @@ export default class HomeScreen extends React.Component {
         uri: image.uri
       });
       console.log(permissions, "SUCCESS", image);
-    this.handleSelectedImage();
-  }
+      this.handleSelectedImage();
+    }
   };
 
   handleSelectedImage = () => {
@@ -132,67 +129,94 @@ export default class HomeScreen extends React.Component {
       // this.popUp()
     });
   };
+
+  dates = () => {
+    const items = this.props.screenProps.items;
+    const unformattedDates = items.map(item => item.created_at);
+    const dates = unformattedDates.map(unformattedDate =>
+      unformattedDate.slice(0, 10)
+    );
+    const today = new Date();
+    const lastweek= new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const dd = String(lastweek.getDate()).padStart(2, "0");
+    const mm = String(lastweek.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = lastweek.getFullYear();
+
+    const dateLastWeek = yyyy + "-" + mm + "-" + dd;
+    
+    const week = dates.filter(date => date > dateLastWeek )
+    return week.length
+  };
+
   render() {
+    const number = this.dates() 
     return (
       <View style={styles.container}>
-        {/* <TextInput
-          value={this.state.name}
-          onChangeText={name => this.setState({ name })}
-          placeholder={"Tag"}
-          placeholderTextColor={"grey"}
-          style={styles.input}
-        /> */}
-        {/* <Button title='drawer' onPress={() => this.props.screenProps.openDrawer()}/> */}
-        <View>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Plastic")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Plastic</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Cigarette")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Cigarette</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Paper")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Paper</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Can")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Can</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Bottle")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Bottle</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Bag")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Bag</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Bottlecap")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>BottleCap</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Cup")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Cup</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={e => this.handleTagSelect("Straw")}>
-            <View style={(style = styles.button)}>
-              <Text style={styles.text}>Straw</Text>
-            </View>
-          </TouchableOpacity>
+        <Text style={styles.header}>
+          You have logged {number} items items in the last week{" "}
+        </Text>
+        <ProgressCircle
+          style={{ height: 200 }}
+          progress={number/7}
+          progressColor={"#66FCF1"}
+          // backgroundColor={"#1F2833"}
+          strokeWidth={20}
+        />
+          <Text style={styles.header}>
+          Select the most relevant tag to start logging litter
+        </Text>
+        <View style={styles.buttonContainer}>
+          <View>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Plastic")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Plastic</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Cigarette")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Cigarette</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Paper")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Paper</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Can")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Can</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Bottle")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Bottle</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Bag")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Bag</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Bottlecap")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>BottleCap</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Cup")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Cup</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={e => this.handleTagSelect("Straw")}>
+              <View style={(style = styles.button)}>
+                <Text style={styles.text}>Straw</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -201,11 +225,14 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: "#1F2833"
+  },
+  buttonContainer: {
     flexDirection: "row",
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#1F2833"
+    alignItems: "center"
   },
   button: {
     width: DeviceWidth * 0.2,
@@ -219,5 +246,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: "bold"
+  },
+  header: {
+    fontSize: 15,
+    color: "white",
+    alignSelf: "center",
+    paddingTop: 20,
+    paddingBottom: 20,
+
   }
 });

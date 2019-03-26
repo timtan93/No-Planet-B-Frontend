@@ -82,7 +82,6 @@ export default class Map extends React.Component {
         coordinate={item}
         key={item.id}
         title={item.name}
-
         image={this.pinImage(item.name)}
       />
     ));
