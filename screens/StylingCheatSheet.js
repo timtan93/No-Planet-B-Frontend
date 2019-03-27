@@ -275,4 +275,3 @@ class PieChartWithCenteredLabels extends React.PureComponent {
 
 }
 
-export default PieChartWithCenteredLabels

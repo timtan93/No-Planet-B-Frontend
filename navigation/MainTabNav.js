@@ -89,7 +89,7 @@ const MainTab = createBottomTabNavigator(
     Map: MapScreen,
     Images: ImagesScreen,
     Settings: OptionsScreen,
-    Styling: StyleScreen
+    // Styling: StyleScreen
   },
   {
     navigationOptions: ({ navigation }) => {

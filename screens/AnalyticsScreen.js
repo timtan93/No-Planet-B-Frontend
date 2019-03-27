@@ -13,7 +13,8 @@ export default class Chart extends React.PureComponent {
   };
 
   state = {
-    items: []
+    items: [],
+    sortedItems: []
   };
 
   componentDidMount() {
@@ -21,16 +22,45 @@ export default class Chart extends React.PureComponent {
       this.setState({
         items: items
       });
-    });
+    }).then(data => this.countTags(this.state.items))
   }
 
   refresh = () => {
     API.getAllItems().then(items => {
       this.setState({
         items: items
-      });
-    });
+      })
+    }).then(data => this.countTags(this.state.items))
   }
+
+  countTags = itemObjects => {
+    const total = itemObjects.length
+    const items = itemObjects.map(item => item.name)
+    let stats = [];
+    let sliced = items.slice(0);
+    for (var i = 0; i < items.length; i++) {
+      var count = 0;
+      for (var x = 0; x < sliced.length; x++) {
+        if (items[i] == sliced[x]) {
+          count++;
+          delete sliced[x];
+        }
+      }
+
+      if (count > 0) {
+        var a = {};
+        a.tag = items[i];
+        a.number = ((count/total)*100);
+        stats.push(a);
+      }
+    }
+    const sorted = stats.sort((a, b) => (a.number < b.number) ? 1 : -1)
+    this.setState({
+      sortedItems: sorted
+    })
+  };
+
+ 
   pinColor = name => {
     switch (name) {
       case "Plastic":
@@ -95,6 +125,7 @@ export default class Chart extends React.PureComponent {
     const latitude = this.props.screenProps.latitude;
     const longitude = this.props.screenProps.longitude;
     const items = this.state.items
+    const sortedItems = this.state.sortedItems
     const plastic = items.filter(item => item.name === "Plastic")
     const can = items.filter(item => item.name === "Can")
     const bottleCap = items.filter(item => item.name === "BottleCap")
@@ -113,6 +144,12 @@ export default class Chart extends React.PureComponent {
         image={this.pinImage(item.name)}
       />
     ));
+    const itemRows = sortedItems.map(item =>(
+      <DataTable.Row key={item.tag}>
+      <DataTable.Cell >{item.tag}</DataTable.Cell>
+      <DataTable.Cell numeric>{item.number.toFixed(2)}%</DataTable.Cell>
+    </DataTable.Row>
+    ))
     const data = [
       {
         value: plastic.length,
@@ -167,26 +204,17 @@ export default class Chart extends React.PureComponent {
         </MapView>
         <View style={{ paddingTop: 10 }} />
         <View
-          style={{ flexDirection: "row", height: DeviceHeight*0.4, paddingVertical: 16,  width: DeviceWidth*0.9, alignSelf: 'center' }}
+          style={{ borderRadius:10, flexDirection: "row", height: DeviceHeight*0.4, paddingVertical: 16,  width: DeviceWidth*0.9, alignSelf: 'center' }}
         >
+        <ScrollView style={{}}>
            <DataTable style={{borderRadius: 10, backgroundColor:"#66FCF1"}}>
         <DataTable.Header>
           <DataTable.Title>Tag</DataTable.Title>
           <DataTable.Title numeric>Percentage</DataTable.Title>
         </DataTable.Header>
-
-        <DataTable.Row>
-          <DataTable.Cell>Plastic</DataTable.Cell>
-          <DataTable.Cell numeric>50%</DataTable.Cell>
-        </DataTable.Row>
-
-        <DataTable.Row>
-          <DataTable.Cell>Bag</DataTable.Cell>
-          <DataTable.Cell numeric>50%</DataTable.Cell>
-        </DataTable.Row>
-
-
+        {itemRows}
       </DataTable>
+      </ScrollView>
         </View>
         <TouchableOpacity style={{paddingLeft: 20, flexDirection: 'row'}} onPress={() =>this.refresh() }>
         <FontAwesome name="refresh" size={50} color="green" />

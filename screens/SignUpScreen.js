@@ -22,6 +22,7 @@ export default class SignInScreen extends React.Component {
   };
 
   SignUp = () => {
+    if (this.validation()){
     API.signup(this.state).then(data => {
       if (data.error) {
         Alert.alert(data.error);
@@ -29,7 +30,26 @@ export default class SignInScreen extends React.Component {
         this.props.navigation.navigate("SignIn")
       }
     });
+  }
   };
+
+  validation = () => {
+    if (this.state.first_name == ""){
+    Alert.alert('Please enter your first name')
+    return false
+    }else if (this.state.second_name == ""){
+      Alert.alert('Please enter your second name')
+      return false
+    }else if (this.state.email == ""){
+      Alert.alert('Please enter email address')
+      return false
+    }else if (this.state.password == ""){
+        Alert.alert('Please enter a password')
+        return false
+  } else {
+    return true
+  }
+}
   _signInAsync = async data => {
     await AsyncStorage.setItem("token", data.token);
     this.props.navigation.navigate("App");
