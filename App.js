@@ -5,6 +5,7 @@ import {
   createAppContainer,
   createDrawerNavigator
 } from "react-navigation";
+
 import { Icon } from "@expo/vector-icons"
 
 import AuthLoadingScreen from "./screens/Auth";
@@ -15,11 +16,12 @@ import Analytics from "./screens/HeatmapScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import IntroScreen from "./screens/IntroScreen"
 
-const AuthSwitch = createSwitchNavigator({
+const AuthSwitch = createStackNavigator({
   Intro: IntroScreen,
   SignIn: SignInScreen,
   SignUp: SignUpScreen,
-});
+})
+
 
 
 

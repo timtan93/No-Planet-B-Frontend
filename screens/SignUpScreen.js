@@ -13,6 +13,9 @@ import {
 import API from "../API";
 
 export default class SignInScreen extends React.Component {
+  static navigationOptions = {
+    headerTransparent: true
+  }
   state = {
     first_name: "",
     second_name: "",
@@ -20,16 +23,47 @@ export default class SignInScreen extends React.Component {
     password: ""
     // passwordtwo: ""
   };
+  _signInAsync = async data => {
+    await AsyncStorage.setItem("token", data.token);
+    this.props.navigation.navigate("App");
+  };
 
   SignUp = () => {
+    if (this.validation()){
     API.signup(this.state).then(data => {
       if (data.error) {
         Alert.alert(data.error);
       } else {
-        this.props.navigation.navigate("SignIn")
+        API.signin(this.state).then(data => {
+          if (data.error) {
+            Alert.alert(data.error);
+          } else {
+            this._signInAsync(data);
+          }
+        });
+      
       }
     });
+  }
   };
+
+  validation = () => {
+    if (this.state.first_name == ""){
+    Alert.alert('Please enter your first name')
+    return false
+    }else if (this.state.second_name == ""){
+      Alert.alert('Please enter your second name')
+      return false
+    }else if (this.state.email == ""){
+      Alert.alert('Please enter email address')
+      return false
+    }else if (this.state.password == ""){
+        Alert.alert('Please enter a password')
+        return false
+  } else {
+    return true
+  }
+}
   _signInAsync = async data => {
     await AsyncStorage.setItem("token", data.token);
     this.props.navigation.navigate("App");
@@ -108,14 +142,14 @@ export default class SignInScreen extends React.Component {
             <Text style={styles.text}>Sign Up</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{ paddingBottom: 10 }}
           onPress={() => this.props.navigation.navigate("SignIn")}
         >
           <View style={(style = styles.button)}>
             <Text style={styles.text}>Sign In</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </ImageBackground>
     );
   }

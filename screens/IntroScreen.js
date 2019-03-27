@@ -11,6 +11,9 @@ import {
 import API from "../API";
 import { AntDesign, Feather } from "@expo/vector-icons";
 export default class DashBoardScreen extends React.Component {
+  static navigationOptions = {
+    headerTransparent: true
+  }
   render() {
     return (
       <ImageBackground

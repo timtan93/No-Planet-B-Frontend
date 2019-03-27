@@ -12,7 +12,7 @@ Feather
 
 export default class OptionsScreen extends React.Component {
   static navigationOptions = {
-    title: "Settings",
+    // title: "Settings",
     tabBarIcon: ({ focused, tintColor }) => {
       return <Feather name="settings" size={25} color={tintColor} />;
     }
