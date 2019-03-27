@@ -46,7 +46,7 @@ export default class DashBoardScreen extends React.Component {
               }}
             >
               Litter is everywhere. Plastic bottles, straws, and cigarette butts
-              destroy our beaches, choke turtles, and threaten the planet. Lets
+              destroy our beaches, choke turtles, and threaten the planet. Let's
               tackle this problem one piece of litter at a time. 
             </Text>
             <Text

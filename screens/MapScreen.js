@@ -20,7 +20,7 @@ export default class Map extends React.Component {
       case "Can":
         return require('../app/img/can.png');
         break;
-      case "BottleCap":
+      case "Bottlecap":
         return require('../app/img/bottlecap.png');
         break;
       case "Cigarette":
@@ -48,7 +48,7 @@ export default class Map extends React.Component {
     const latitude = this.props.screenProps.latitude;
     const longitude = this.props.screenProps.longitude;
     const items = this.props.screenProps.items;
-    const userItemsMarkers = items.map(item => (
+    const itemsMarkers = items.map(item => (
       <MapView.Marker
         coordinate={item}
         key={item.id}
@@ -79,13 +79,13 @@ export default class Map extends React.Component {
           longitudeDelta: 0.0421
         }}
         initialRegion={{
-          latitude: 51.520470,
-          longitude: 0.087260,
+          latitude: 51.5202146,
+          longitude: -0.0877691,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421
         }}
       >
-        {userItemsMarkers}
+        {itemsMarkers}
       </MapView>
       /* <ScrollView contentContainerStyle={styles.contentContainer}>
           {userItemImages}

@@ -149,6 +149,8 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
+    const latitude = this.props.screenProps.latitude;
+    const longitude = this.props.screenProps.longitude;
     const number = this.dates() 
     return (
       <View style={styles.container}>
