@@ -43,36 +43,7 @@ export default class Map extends React.Component {
     }
   };
 
-  pinColor = (name) => {
-    switch (name) {
-      case "Plastic":
-        return "red";
-        break;
-      case "Can":
-        return "blue";
-        break;
-      case "BottleCap":
-        return "green";
-        break;
-      case "Cigarette":
-        return "cyan";
-        break;
-      case "Bottle":
-        return "orange";
-        break;
-      case "Cup":
-        return "yellow";
-        break;
-      case "Paper":
-        return "purple";
-        break;
-      case "Bag":
-        return "lightblue";
-        break;
-      case "Straw":
-        return "khaki";
-    }
-  };
+ 
   render() {
     const latitude = this.props.screenProps.latitude;
     const longitude = this.props.screenProps.longitude;

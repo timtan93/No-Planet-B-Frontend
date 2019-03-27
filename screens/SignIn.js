@@ -77,11 +77,11 @@ export default class SignInScreen extends React.Component {
               <Text style={styles.text}>Sign In</Text>
             </View >
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("SignUp")}>
+          {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("SignUp")}>
             <View style={(style = styles.button)}>
               <Text style={styles.text}>Sign Up</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
       </ImageBackground>
     );
   }
