@@ -13,12 +13,19 @@ import {
 import API from "../API";
 
 export default class SignInScreen extends React.Component {
+  static navigationOptions = {
+    headerTransparent: true
+  }
   state = {
     first_name: "",
     second_name: "",
     email: "",
     password: ""
     // passwordtwo: ""
+  };
+  _signInAsync = async data => {
+    await AsyncStorage.setItem("token", data.token);
+    this.props.navigation.navigate("App");
   };
 
   SignUp = () => {
@@ -27,7 +34,14 @@ export default class SignInScreen extends React.Component {
       if (data.error) {
         Alert.alert(data.error);
       } else {
-        this.props.navigation.navigate("SignIn")
+        API.signin(this.state).then(data => {
+          if (data.error) {
+            Alert.alert(data.error);
+          } else {
+            this._signInAsync(data);
+          }
+        });
+      
       }
     });
   }

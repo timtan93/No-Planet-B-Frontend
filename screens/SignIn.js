@@ -13,6 +13,9 @@ import {
 import API from "../API";
 
 export default class SignInScreen extends React.Component {
+  static navigationOptions = {
+    headerTransparent: true
+  }
   state = {
     email: "",
     password: ""
