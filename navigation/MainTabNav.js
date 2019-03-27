@@ -4,25 +4,28 @@ import {
   createStackNavigator,
   createBottomTabNavigator,
   createAppContainer,
-  createDrawerNavigator
+  createDrawerNavigator,
+  DrawerItems
 } from "react-navigation";
 import {
   SimpleLineIcons,
   AntDesign,
   Entypo,
   MaterialCommunityIcons,
-  Icon
+  Icon,
+  Feather
 } from "@expo/vector-icons";
-import { TouchableOpacity, Text, View, Button } from "react-native";
+import { TouchableOpacity, Text, View, Button, SafeAreaView, ScrollView } from "react-native";
 import HomeScreen from "../screens/HomeScreen";
 import CameraScreen from "../screens/CameraScreen";
 import MapScreen from "../screens/MapScreen";
 import OptionsScreen from "../screens/OptionsScreen";
 import StyleScreen from "../screens/StylingCheatSheet";
 import ImagesScreen from "../screens/ImagesScreen";
-
+import UserUpdateScreen from '../screens/UserUpdateForm'
 import Analytics from "../screens/AnalyticsScreen";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import SignOutScreen from '../screens/SignOutScreen'
+
 
 // const HomeStack = createStackNavigator({
 //   Home: HomeScreen
@@ -76,13 +79,28 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 //     <MaterialCommunityIcons name="image-album" size={32} />
 //   )
 // };
+const SettingStack = createStackNavigator(
+  {
+    Settings: OptionsScreen,
+    UpdateUser: UserUpdateScreen,
+  },
+  {
+    headerMode: "none",
+    navigationOptions: {
+      headerVisible: false,
+      tabBarIcon: ({ focused, tintColor }) => {
+        return <Feather name="settings" size={25} color={tintColor} />;
+      }
+    }
+  }
+);
 
 const MainTab = createBottomTabNavigator(
   {
     Home: HomeScreen,
     Map: MapScreen,
     Images: ImagesScreen,
-    Settings: OptionsScreen
+    Settings: SignOutScreen
     // Styling: StyleScreen
   },
   {
@@ -139,11 +157,14 @@ const AnalyticsStack = createStackNavigator(
   }
 );
 
+
+ 
 const AppDrawerNavigator = createDrawerNavigator({
   Home: HomeStackNavigator,
   Analytics: AnalyticsStack,
-  LogOut: OptionsScreen
-});
+  // LogOut: SignOutScreen
+}
+);
 
 const AppContainer = createAppContainer(AppDrawerNavigator);
 

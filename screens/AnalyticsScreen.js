@@ -199,6 +199,12 @@ export default class Chart extends React.PureComponent {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421
           }}
+          initialRegion={{
+            latitude: 51.520470,
+            longitude: 0.087260,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          }}
         >
           {itemMarkers}
         </MapView>

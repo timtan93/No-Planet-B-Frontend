@@ -72,9 +72,15 @@ export default class Map extends React.Component {
           // paddingTop: Constants.statusBarHeight
           flex: 1
         }}
-        initialRegion={{
+        region={{
           latitude: latitude,
           longitude: longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421
+        }}
+        initialRegion={{
+          latitude: 51.520470,
+          longitude: 0.087260,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421
         }}

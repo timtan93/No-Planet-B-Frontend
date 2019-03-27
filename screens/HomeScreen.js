@@ -33,7 +33,7 @@ export default class HomeScreen extends React.Component {
   getCurrentTime = () => {
     var today = new Date();
     var time =
-      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear() + '@' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     return time;
   };
 

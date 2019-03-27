@@ -10,8 +10,8 @@ import MainTabNav from "./MainTabNav";
 export default class Home extends React.Component {
   state = {
     items: [],
-    latitude: null,
-    longitude: null,
+    latitude: 51.520470,
+    longitude: 0.087260,
   };
 
   _signOutAsync = async () => {

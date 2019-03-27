@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b9499f5b-3e55-4399-b51a-bbed0bf2d427" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.expo/packager-info.json" beforeDir="false" afterPath="$PROJECT_DIR$/.expo/packager-info.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API.js" beforeDir="false" afterPath="$PROJECT_DIR$/API.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/navigation/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/navigation/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/navigation/MainTabNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/navigation/MainTabNav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/AnalyticsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/AnalyticsScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/MapScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/MapScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/OptionsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/OptionsScreen.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,12 +20,13 @@
     <session id="-779066351">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="14" />
+          <entry key="project.closed" value="15" />
           <entry key="project.open.time.2" value="2" />
           <entry key="project.open.time.3" value="5" />
           <entry key="project.open.time.4" value="6" />
+          <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="15" />
         </counts>
       </usages-collector>
     </session>
@@ -28,7 +34,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1400" />
     <option name="height" value="837" />
@@ -38,9 +44,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -74,7 +80,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1400" height="837" extended-state="1" />
+    <frame x="0" y="23" width="1400" height="837" extended-state="0" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32994923" />
