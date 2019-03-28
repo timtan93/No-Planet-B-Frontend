@@ -205,7 +205,7 @@ export default class HomeScreen extends React.Component {
           <View>
             <TouchableOpacity onPress={e => this.handleTagSelect("Bottlecap")}>
               <View style={(style = styles.button)}>
-                <Text style={styles.text}>BottleCap</Text>
+                <Text style={styles.text}>Bottlecap</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={e => this.handleTagSelect("Cup")}>
