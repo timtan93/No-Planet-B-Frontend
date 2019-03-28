@@ -23,6 +23,10 @@
     },
     "ios": {
       "supportsTablet": true
+    },
+    "extra": {
+      "accessKey": "AKIAJ2DDE7SSXSHEEPUA",
+      "secretKey": "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"
     }
   }
 }
