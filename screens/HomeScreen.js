@@ -12,7 +12,7 @@ import {
 import { ProgressCircle } from "react-native-svg-charts";
 
 import { AntDesign } from "@expo/vector-icons";
-import { Permissions, ImagePicker } from "expo";
+import { Constants, Permissions, ImagePicker } from "expo";
 import { RNS3 } from "react-native-aws3";
 const DeviceWidth = Dimensions.get("window").width;
 
@@ -99,8 +99,8 @@ export default class HomeScreen extends React.Component {
     const options = {
       bucket: "mod5-recycle",
       region: "eu-west-2",
-      accessKey: "AKIAJ2DDE7SSXSHEEPUA",
-      secretKey: "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",
+      accessKey: Constants.manifest.extra.accessKey,
+      secretKey: Constants.manifest.extra.secretKey,
       successActionStatus: 201
     };
     RNS3.put(file, options).then(response => {
