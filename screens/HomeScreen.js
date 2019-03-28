@@ -33,7 +33,7 @@ export default class HomeScreen extends React.Component {
   getCurrentTime = () => {
     var today = new Date();
     var time =
-      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      today.getDate() + '-' + today.getMonth() + '-' + today.getFullYear() + '@' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     return time;
   };
 
@@ -149,6 +149,8 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
+    const latitude = this.props.screenProps.latitude;
+    const longitude = this.props.screenProps.longitude;
     const number = this.dates() 
     return (
       <View style={styles.container}>
@@ -203,7 +205,7 @@ export default class HomeScreen extends React.Component {
           <View>
             <TouchableOpacity onPress={e => this.handleTagSelect("Bottlecap")}>
               <View style={(style = styles.button)}>
-                <Text style={styles.text}>BottleCap</Text>
+                <Text style={styles.text}>Bottlecap</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={e => this.handleTagSelect("Cup")}>

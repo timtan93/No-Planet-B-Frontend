@@ -61,36 +61,7 @@ export default class Chart extends React.PureComponent {
   };
 
  
-  pinColor = name => {
-    switch (name) {
-      case "Plastic":
-        return "red";
-        break;
-      case "Can":
-        return "blue";
-        break;
-      case "BottleCap":
-        return "green";
-        break;
-      case "Cigarette":
-        return "cyan";
-        break;
-      case "Bottle":
-        return "orange";
-        break;
-      case "Cup":
-        return "yellow";
-        break;
-      case "Paper":
-        return "purple";
-        break;
-      case "Bag":
-        return "lightblue";
-        break;
-      case "Straw":
-        return "khaki";
-    }
-  };
+ 
   pinImage = (name) => {
     switch (name) {
       case "Plastic":
@@ -99,7 +70,7 @@ export default class Chart extends React.PureComponent {
       case "Can":
         return require('../app/img/can.png');
         break;
-      case "BottleCap":
+      case "Bottlecap":
         return require('../app/img/bottlecap.png');
         break;
       case "Cigarette":
@@ -128,7 +99,7 @@ export default class Chart extends React.PureComponent {
     const sortedItems = this.state.sortedItems
     const plastic = items.filter(item => item.name === "Plastic")
     const can = items.filter(item => item.name === "Can")
-    const bottleCap = items.filter(item => item.name === "BottleCap")
+    const bottlecap = items.filter(item => item.name === "Bottlecap")
     const cigarette = items.filter(item => item.name === "Cigarette")
     const bottle = items.filter(item => item.name === "Bottle")
     const cup = items.filter(item => item.name === "Cup")
@@ -160,8 +131,8 @@ export default class Chart extends React.PureComponent {
         label: "Can"
       },
       {
-        value: bottleCap.length,
-        label: "BottleCap"
+        value: bottlecap.length,
+        label: "Bottlecap"
       },
       {
         value: cigarette.length,
@@ -196,6 +167,12 @@ export default class Chart extends React.PureComponent {
           region={{
             latitude: latitude,
             longitude: longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          }}
+          initialRegion={{
+            latitude: 51.5202146,
+            longitude: -0.0877691,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421
           }}
