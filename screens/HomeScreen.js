@@ -62,7 +62,7 @@ export default class HomeScreen extends React.Component {
           style: "cancel"
         }
       ],
-      { cancelable: false }
+      { cancelable: true }
     );
   }
   galleryHandler = async () => {
@@ -155,7 +155,7 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
-          You have logged {number} items items in the last week{" "}
+          You have logged {number} items in the last week{" "}
         </Text>
         <ProgressCircle
           style={{ height: 200 }}
